@@ -1,0 +1,4 @@
+<?php
+//Funktionen für Datenbankzugriff
+
+?>
