@@ -1,5 +1,6 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) session_start();
+if (session_status() == PHP_SESSION_NONE)
+    session_start();
 
 require_once('config/dbaccess.php'); //to retrieve connection detail
 require_once('config/db_utils.php'); //functions for database access
@@ -26,18 +27,45 @@ if ($db->connect_error) {
 <body class="d-flex flex-column min-vh-100">
 
     <!-- NAV-BAR -->
-    <?php //include "./components/nav.php"; ?>
+    <?php //include "./base/nav.php"; ?>
 
     <header class="" style="">
-        <h1 class="text-center">GeoVista</h1>
+        <h1 class="text-center text-primary">GeoVista</h1>
     </header>
 
     <!-- Welcome logged in user -->
     <?php
-        echo "<p class='mt-3 text-center'>Willkommen, <span class='fw-bold'>Demouser</span>!</p>";
+    echo "<p class='mt-3 text-center'>Willkommen, <span class='fw-bold'>Demouser</span>!</p>";
     ?>
 
     <main class="m-5">
+
+        <div class="d-flex justify-content-center flex-wrap gap-4" onclick="location.href='level1.php';">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="res/img/level_icons/level1" alt="Level1">
+                <div class="card-body">
+                    <h5 class="card-title">Level 1</h5>
+                </div>
+            </div>
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="res/img/level_icons/level2" alt="Level2">
+                <div class="card-body">
+                    <h5 class="card-title">Level 2</h5>
+                </div>
+            </div>
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="res/img/level_icons/level3" alt="Level3">
+                <div class="card-body">
+                    <h5 class="card-title">Level 3</h5>
+                </div>
+            </div>
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="res/img/level_icons/level4" alt="Level4">
+                <div class="card-body">
+                    <h5 class="card-title">Level 4</h5>
+                </div>
+            </div>
+        </div>
 
     </main>
 
