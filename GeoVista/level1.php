@@ -27,7 +27,7 @@ if ($db->connect_error) {
 <body class="d-flex flex-column min-vh-100">
 
     <!-- NAV-BAR -->
-    <?php //include "./base/nav.php"; ?>
+    <?php include "./base/nav.php"; ?>
 
     <header class="" style="">
         <h1 class="text-center text-primary">GeoVista</h1>
