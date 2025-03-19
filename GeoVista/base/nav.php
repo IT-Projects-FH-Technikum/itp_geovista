@@ -29,12 +29,8 @@ if (session_status() == PHP_SESSION_NONE)
             </li>
         </ul>
 
-        <div class="nav-item text-light">
-            <p>Hallo, <span class='fw-bold'>Demouser</span>!</p>
-        </div>
-
         <!-- Profil-Icon -> only for logged in users -->
-        <a class="nav-link" href="./editProfile.php"><img src="./res/img/icons/profil.png" class="me-0 me-md-3 mb-3 mb-md-0"
+        <a class="nav-link" href=""><img src="./res/img/icons/profil.png" class="me-0 me-md-3 mb-3 mb-md-0"
                 alt="Profil Icon" style="width: 40px;"></a>
 
         <!-- Login/Logout -->

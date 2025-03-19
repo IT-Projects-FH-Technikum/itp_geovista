@@ -29,8 +29,11 @@ if ($db->connect_error) {
     <!-- NAV-BAR -->
     <?php include "./base/nav.php"; ?>
 
+    <!-- USERNAME -->
+    <?php include "./base/username.php"; ?>
+
     <header class="" style="">
-        <h1 class="text-center text-primary">GeoVista</h1>
+        <h1 class="text-center text-primary">Level 1</h1>
     </header>
 
     <!-- Username -->
