@@ -1,0 +1,14 @@
+// Borders, admin_level = 2 (normally countries)
+// output as csv
+
+[out:csv(admin_level, ::type, type,::id, wikidata, 'name','name:en','ISO3166-1:alpha2', border_type, official_name, description)] 
+[timeout:60];
+
+relation
+	["boundary"="administrative"]
+	["type"="boundary"]
+	["admin_level"="2"]
+	["name"~".*"];
+
+// Output current relation
+out asc;

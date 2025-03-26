@@ -1,0 +1,11 @@
+[out:json][timeout:20];
+
+// enter here relation id of the border (from csv-list)
+// for example 51684 = Czechia
+// execute and export the result as gpx
+// can be used as overlay in naigation app Kurviger.de
+
+relation(51684);
+out body;>;
+out skel qt;
+
