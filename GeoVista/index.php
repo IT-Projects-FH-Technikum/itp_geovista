@@ -29,13 +29,13 @@ if ($db->connect_error) {
     <!-- NAV-BAR -->
     <?php include "./base/nav.php"; ?>
 
-    <header class="" style="">
+    <header class="mt-4" style="">
         <h1 class="text-center text-primary">GeoVista</h1>
     </header>
 
     <!-- Welcome logged in user -->
     <?php
-    echo "<p class='mt-3 text-center'>Willkommen, <span class='fw-bold'>Demouser</span>!</p>";
+    echo "<p class='mt-3 text-center'>Hallo, <span class='fw-bold'>Demouser</span>!</p>";
     ?>
 
     <main class="m-5">
