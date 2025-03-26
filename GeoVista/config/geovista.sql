@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 10. Mrz 2025 um 14:13
+-- Erstellungszeit: 26. Mrz 2025 um 11:39
 -- Server-Version: 10.4.22-MariaDB
 -- PHP-Version: 8.1.2
 
@@ -47,19 +47,6 @@ CREATE TABLE `geovista` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `level`
---
-
-CREATE TABLE `level` (
-  `id_level` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `fk_geovista` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Tabellenstruktur für Tabelle `question`
 --
 
@@ -67,7 +54,20 @@ CREATE TABLE `question` (
   `id_question` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `fk_level` int(11) NOT NULL
+  `fk_quiz` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `quiz`
+--
+
+CREATE TABLE `quiz` (
+  `id_quiz` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `fk_geovista` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -103,18 +103,18 @@ ALTER TABLE `geovista`
   ADD PRIMARY KEY (`pk_geovista`);
 
 --
--- Indizes für die Tabelle `level`
---
-ALTER TABLE `level`
-  ADD PRIMARY KEY (`id_level`),
-  ADD KEY `fk_geovista_l` (`fk_geovista`);
-
---
 -- Indizes für die Tabelle `question`
 --
 ALTER TABLE `question`
   ADD PRIMARY KEY (`id_question`),
-  ADD KEY `fk_level` (`fk_level`);
+  ADD KEY `fk_quiz` (`fk_quiz`);
+
+--
+-- Indizes für die Tabelle `quiz`
+--
+ALTER TABLE `quiz`
+  ADD PRIMARY KEY (`id_quiz`),
+  ADD KEY `fk_geovista_l` (`fk_geovista`);
 
 --
 -- Indizes für die Tabelle `user`
@@ -135,16 +135,16 @@ ALTER TABLE `answer`
   MODIFY `id_answer` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `level`
---
-ALTER TABLE `level`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT für Tabelle `question`
 --
 ALTER TABLE `question`
   MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `quiz`
+--
+ALTER TABLE `quiz`
+  MODIFY `id_quiz` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `user`
@@ -163,16 +163,16 @@ ALTER TABLE `answer`
   ADD CONSTRAINT `fk_question` FOREIGN KEY (`fk_question`) REFERENCES `question` (`id_question`) ON DELETE CASCADE;
 
 --
--- Constraints der Tabelle `level`
---
-ALTER TABLE `level`
-  ADD CONSTRAINT `fk_geovista_l` FOREIGN KEY (`fk_geovista`) REFERENCES `geovista` (`pk_geovista`);
-
---
 -- Constraints der Tabelle `question`
 --
 ALTER TABLE `question`
-  ADD CONSTRAINT `fk_level` FOREIGN KEY (`fk_level`) REFERENCES `level` (`id_level`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_quiz` FOREIGN KEY (`fk_quiz`) REFERENCES `quiz` (`id_quiz`) ON DELETE CASCADE;
+
+--
+-- Constraints der Tabelle `quiz`
+--
+ALTER TABLE `quiz`
+  ADD CONSTRAINT `fk_geovista_l` FOREIGN KEY (`fk_geovista`) REFERENCES `geovista` (`pk_geovista`);
 
 --
 -- Constraints der Tabelle `user`
