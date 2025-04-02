@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1deb3
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Mar 26, 2025 at 12:56 PM
--- Server version: 8.0.41-0ubuntu0.24.04.1
--- PHP Version: 8.3.6
+-- Host: 127.0.0.1
+-- Generation Time: Apr 02, 2025 at 01:42 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,11 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `answer` (
-  `id_answer` int NOT NULL,
+  `id_answer` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
   `isCorrectAnswer` tinyint(1) NOT NULL,
-  `fk_question` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `fk_question` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `answer`
@@ -278,7 +278,87 @@ INSERT INTO `answer` (`id_answer`, `description`, `isCorrectAnswer`, `fk_questio
 (321, 'Italien', 0, 60),
 (322, 'Bulgarien', 0, 60),
 (323, 'Griechenland', 1, 60),
-(324, 'Türkei', 0, 60);
+(324, 'Türkei', 0, 60),
+(325, 'Spanien', 0, 61),
+(326, 'Frankreich', 0, 61),
+(327, 'Italien', 1, 61),
+(328, 'Griechenland', 0, 61),
+(329, 'Dänemark', 0, 62),
+(330, 'Schweden', 0, 62),
+(331, 'Norwegen', 1, 62),
+(332, 'Belgien', 0, 62),
+(333, 'Spanien', 0, 63),
+(334, 'Portugal', 1, 63),
+(335, 'Frankreich', 0, 63),
+(336, 'Belgien', 0, 63),
+(337, 'Albanien', 0, 64),
+(338, 'Kosovo', 0, 64),
+(339, 'Serbien', 0, 64),
+(340, 'Nordmazedonien', 1, 64),
+(341, 'Luxemburg', 0, 65),
+(342, 'Liechtenstein', 1, 65),
+(343, 'Schweiz', 0, 65),
+(344, 'Andorra', 0, 65),
+(345, 'Lettland', 0, 66),
+(346, 'Litauen', 0, 66),
+(347, 'Polen', 0, 66),
+(348, 'Estland', 1, 66),
+(349, 'Kroatien', 0, 67),
+(350, 'Slowenien', 1, 67),
+(351, 'Bosnien und Herzegowina', 0, 67),
+(352, 'Österreich', 0, 67),
+(353, 'Monaco', 0, 68),
+(354, 'Andorra', 1, 68),
+(355, 'Luxemburg', 0, 68),
+(356, 'San Marino', 0, 68),
+(357, 'Serbien', 0, 69),
+(358, 'Slowenien', 0, 69),
+(359, 'Bosnien und Herzegowina', 0, 69),
+(360, 'Kroatien', 1, 69),
+(361, 'Polen', 0, 70),
+(362, 'Tschechien', 1, 70),
+(363, 'Slowakei', 0, 70),
+(364, 'Ungarn', 0, 70),
+(365, 'Rumänien', 0, 71),
+(366, 'Bulgarien', 0, 71),
+(367, 'Serbien', 1, 71),
+(368, 'Nordmazedonien', 0, 71),
+(369, 'Italien', 0, 72),
+(370, 'Andorra', 0, 72),
+(371, 'San Marino', 1, 72),
+(372, 'Vatikanstadt', 0, 72),
+(373, 'Kosovo', 0, 73),
+(374, 'Serbien', 0, 73),
+(375, 'Montenegro', 1, 73),
+(376, 'Bosnien und Herzegowina', 0, 73),
+(378, 'Großbritannien', 0, 74),
+(379, 'Frankreich', 0, 74),
+(380, 'Irland', 1, 74),
+(381, 'Belgien', 0, 74),
+(382, 'Nordmazedonien', 0, 75),
+(383, 'Montenegro', 0, 75),
+(384, 'Kosovo', 1, 75),
+(385, 'Albanien', 0, 75),
+(386, 'Kroatien', 0, 76),
+(387, 'Serbien', 0, 76),
+(388, 'Bosnien und Herzegowina', 1, 76),
+(389, 'Slowenien', 0, 76),
+(390, 'Estland', 0, 77),
+(391, 'Lettland', 0, 77),
+(392, 'Belarus', 0, 77),
+(393, 'Litauen', 1, 77),
+(394, 'Belgien', 0, 78),
+(395, 'Liechtenstein', 0, 78),
+(396, 'Schweiz', 0, 78),
+(397, 'Luxemburg', 1, 78),
+(398, 'Zypern', 0, 79),
+(399, 'Griechenland', 0, 79),
+(400, 'Italien', 0, 79),
+(401, 'Malta', 1, 79),
+(402, 'Griechenland', 0, 80),
+(403, 'Nordmazedonien', 0, 80),
+(404, 'Albanien', 1, 80),
+(405, 'Montenegro', 0, 80);
 
 -- --------------------------------------------------------
 
@@ -287,8 +367,8 @@ INSERT INTO `answer` (`id_answer`, `description`, `isCorrectAnswer`, `fk_questio
 --
 
 CREATE TABLE `geovista` (
-  `pk_geovista` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `pk_geovista` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `geovista`
@@ -304,11 +384,11 @@ INSERT INTO `geovista` (`pk_geovista`) VALUES
 --
 
 CREATE TABLE `question` (
-  `id_question` int NOT NULL,
+  `id_question` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `fk_quiz` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `fk_quiz` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `question`
@@ -374,7 +454,27 @@ INSERT INTO `question` (`id_question`, `description`, `image`, `fk_quiz`) VALUES
 (57, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Sweden.gpx', 4),
 (58, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Finland.gpx', 4),
 (59, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Ireland.gpx', 4),
-(60, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Greece.gpx', 4);
+(60, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Greece.gpx', 4),
+(61, 'Um welches Land handelt es sich hier?', '/res/img/question_img/italien.png', 1),
+(62, 'Um welches Land handelt es sich hier?', '/res/img/question_img/norwegen.png', 1),
+(63, 'Um welches Land handelt es sich hier?', '/res/img/question_img/portugal.png', 1),
+(64, 'Um welches Land handelt es sich hier?', '/res/img/question_img/nordmazedonien.png', 1),
+(65, 'Um welches Land handelt es sich hier?', '/res/img/question_img/liechtenstein.png', 1),
+(66, 'Um welches Land handelt es sich hier?', '/res/img/question_img/estland.png', 1),
+(67, 'Um welches Land handelt es sich hier?', '/res/img/question_img/slowenien.png', 1),
+(68, 'Um welches Land handelt es sich hier?', '/res/img/question_img/andorra.png', 1),
+(69, 'Um welches Land handelt es sich hier?', '/res/img/question_img/kroatien.png', 1),
+(70, 'Um welches Land handelt es sich hier?', '/res/img/question_img/tschechien.png', 1),
+(71, 'Um welches Land handelt es sich hier?', '/res/img/question_img/serbien.png', 1),
+(72, 'Um welches Land handelt es sich hier?', '/res/img/question_img/san_marino.png', 1),
+(73, 'Um welches Land handelt es sich hier?', '/res/img/question_img/montenegro.png', 1),
+(74, 'Um welches Land handelt es sich hier?', '/res/img/question_img/irland.png', 1),
+(75, 'Um welches Land handelt es sich hier?', '/res/img/question_img/kosovo.png', 1),
+(76, 'Um welches Land handelt es sich hier?', '/res/img/question_img/bosnien.png', 1),
+(77, 'Um welches Land handelt es sich hier?', '/res/img/question_img/litauen.png', 1),
+(78, 'Um welches Land handelt es sich hier?', '/res/img/question_img/luxemburg.png', 1),
+(79, 'Um welches Land handelt es sich hier?', '/res/img/question_img/malta.png', 1),
+(80, 'Um welches Land handelt es sich hier?', '/res/img/question_img/albanien.png', 1);
 
 -- --------------------------------------------------------
 
@@ -383,11 +483,11 @@ INSERT INTO `question` (`id_question`, `description`, `image`, `fk_quiz`) VALUES
 --
 
 CREATE TABLE `quiz` (
-  `id_quiz` int NOT NULL,
+  `id_quiz` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
-  `fk_geovista` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `fk_geovista` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `quiz`
@@ -406,13 +506,13 @@ INSERT INTO `quiz` (`id_quiz`, `name`, `icon`, `fk_geovista`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id_user` int NOT NULL,
+  `id_user` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
-  `fk_geovista` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `fk_geovista` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -461,25 +561,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id_answer` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=325;
+  MODIFY `id_answer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=406;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id_question` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id_quiz` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_quiz` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
