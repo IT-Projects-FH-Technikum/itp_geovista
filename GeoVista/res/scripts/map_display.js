@@ -42,6 +42,14 @@ export function getLeafletModule(container, mapUrl, withWorld) {
             fillColor: '#f0f0f0',
             fillOpacity: 1
         }).addTo(map);
+
+        // disable scrolling and the 
+        map.scrollWheelZoom.disable();
+        map.doubleClickZoom.disable();
+        map.touchZoom.disable();
+        map.boxZoom.disable();
+        map.keyboard.disable();
+        map.removeControl(map.zoomControl);
     }
 
     return map;
