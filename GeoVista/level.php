@@ -101,7 +101,7 @@ if ($current_question_index >= count($questions)) {
 
                 <?php if(!$finishedQuiz): ?>
                     
-                    <?php if($_GET['quiz'] === '4'): ?>
+                    <?php if($_GET['quiz'] === '4' || $_GET['quiz'] === '1'): ?>
                         <div id="map"></div>
                         <script type="module">
                             import { getLeafletModule, loadCountryData } from './res/scripts/map_display.js';
@@ -109,7 +109,7 @@ if ($current_question_index >= count($questions)) {
                             // INITIALIZE MAP
                             const mapContainer = document.getElementById('map');
                             const borderImageUrl = 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png';
-                            const map = getLeafletModule(mapContainer, borderImageUrl, true);
+                            const map = getLeafletModule(mapContainer, borderImageUrl, <?php if ($_GET['quiz'] === '4') { echo false; } else if ($_GET['quiz'] === '1') { echo true; }?>);
 
                             let test = await loadCountryData(map, "<?php echo $current_question["image"] ?>");
                         </script>
