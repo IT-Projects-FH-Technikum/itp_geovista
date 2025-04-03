@@ -76,6 +76,9 @@ if ($current_question_index >= count($questions)) {
     <!-- USERNAME -->
     <?php include "./base/username.php"; ?>
 
+    <!-- LEAFLET PLUGIN -->
+    <?php include "./base/plugins.php"?>
+
     <header class="">
         <h1 class="text-center text-primary"><?php echo $quizName ?></h1>
     </header>
@@ -100,6 +103,16 @@ if ($current_question_index >= count($questions)) {
                     
                     <?php if($_GET['quiz'] === '4'): ?>
                         <div id="map"></div>
+                        <script type="module">
+                            import { getLeafletModule, loadCountryData } from './res/scripts/map_display.js';
+
+                            // INITIALIZE MAP
+                            const mapContainer = document.getElementById('map');
+                            const borderImageUrl = 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png';
+                            const map = getLeafletModule(mapContainer, borderImageUrl, true);
+
+                            let test = await loadCountryData(map, "<?php echo $current_question["image"] ?>");
+                        </script>
                     <?php else: ?>
                         <img class="card-img-top" style="width: 400px;" src="<?php echo $current_question["image"] ?>" alt="Bild zu Frage <?php echo $current_question_index + 1; ?> Quiz <?php echo $quizName; ?>">
                     <?php endif; ?>
