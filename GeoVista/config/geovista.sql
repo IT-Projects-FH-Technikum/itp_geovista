@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2025 at 11:34 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Erstellungszeit: 03. Apr 2025 um 22:28
+-- Server-Version: 10.4.22-MariaDB
+-- PHP-Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `geovista`
+-- Datenbank: `geovista`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `answer`
+-- Tabellenstruktur für Tabelle `answer`
 --
 
 CREATE TABLE `answer` (
@@ -32,10 +32,10 @@ CREATE TABLE `answer` (
   `description` varchar(255) NOT NULL,
   `isCorrectAnswer` tinyint(1) NOT NULL,
   `fk_question` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `answer`
+-- Daten für Tabelle `answer`
 --
 
 INSERT INTO `answer` (`id_answer`, `description`, `isCorrectAnswer`, `fk_question`) VALUES
@@ -363,15 +363,15 @@ INSERT INTO `answer` (`id_answer`, `description`, `isCorrectAnswer`, `fk_questio
 -- --------------------------------------------------------
 
 --
--- Table structure for table `geovista`
+-- Tabellenstruktur für Tabelle `geovista`
 --
 
 CREATE TABLE `geovista` (
   `pk_geovista` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `geovista`
+-- Daten für Tabelle `geovista`
 --
 
 INSERT INTO `geovista` (`pk_geovista`) VALUES
@@ -380,7 +380,7 @@ INSERT INTO `geovista` (`pk_geovista`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `question`
+-- Tabellenstruktur für Tabelle `question`
 --
 
 CREATE TABLE `question` (
@@ -388,10 +388,10 @@ CREATE TABLE `question` (
   `description` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `fk_quiz` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `question`
+-- Daten für Tabelle `question`
 --
 
 INSERT INTO `question` (`id_question`, `description`, `image`, `fk_quiz`) VALUES
@@ -479,7 +479,7 @@ INSERT INTO `question` (`id_question`, `description`, `image`, `fk_quiz`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `quiz`
+-- Tabellenstruktur für Tabelle `quiz`
 --
 
 CREATE TABLE `quiz` (
@@ -487,22 +487,22 @@ CREATE TABLE `quiz` (
   `name` varchar(255) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
   `fk_geovista` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `quiz`
+-- Daten für Tabelle `quiz`
 --
 
 INSERT INTO `quiz` (`id_quiz`, `name`, `icon`, `fk_geovista`) VALUES
-(1, 'Länder', NULL, 1),
-(2, 'Hauptstädte', NULL, 1),
-(3, 'Flaggen', NULL, 1),
-(4, 'Länder (Umrisse)', NULL, 1);
+(1, 'Länder', 'res/img/quiz_icons/icon-laenderFarbe.jpg', 1),
+(2, 'Hauptstädte', 'res/img/quiz_icons/icon-hauptstaedte.jpg', 1),
+(3, 'Flaggen', 'res/img/quiz_icons/icon-flaggen.jpg', 1),
+(4, 'Länder (Umrisse)', 'res/img/quiz_icons/icon-laenderUmriss.png', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Tabellenstruktur für Tabelle `user`
 --
 
 CREATE TABLE `user` (
@@ -512,10 +512,10 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
   `fk_geovista` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
+-- Daten für Tabelle `user`
 --
 
 INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `isAdmin`, `fk_geovista`) VALUES
@@ -523,38 +523,38 @@ INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `isAdmin`, `fk_g
 (2, 'maxmustermann', 'max.mustermann@gmx.com', 'Passwort123', 0, 1);
 
 --
--- Indexes for dumped tables
+-- Indizes der exportierten Tabellen
 --
 
 --
--- Indexes for table `answer`
+-- Indizes für die Tabelle `answer`
 --
 ALTER TABLE `answer`
   ADD PRIMARY KEY (`id_answer`),
   ADD KEY `fk_question` (`fk_question`);
 
 --
--- Indexes for table `geovista`
+-- Indizes für die Tabelle `geovista`
 --
 ALTER TABLE `geovista`
   ADD PRIMARY KEY (`pk_geovista`);
 
 --
--- Indexes for table `question`
+-- Indizes für die Tabelle `question`
 --
 ALTER TABLE `question`
   ADD PRIMARY KEY (`id_question`),
   ADD KEY `fk_quiz` (`fk_quiz`);
 
 --
--- Indexes for table `quiz`
+-- Indizes für die Tabelle `quiz`
 --
 ALTER TABLE `quiz`
   ADD PRIMARY KEY (`id_quiz`),
   ADD KEY `fk_geovista_l` (`fk_geovista`);
 
 --
--- Indexes for table `user`
+-- Indizes für die Tabelle `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
@@ -562,57 +562,57 @@ ALTER TABLE `user`
   ADD KEY `fk_geovista` (`fk_geovista`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
--- AUTO_INCREMENT for table `answer`
+-- AUTO_INCREMENT für Tabelle `answer`
 --
 ALTER TABLE `answer`
   MODIFY `id_answer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=406;
 
 --
--- AUTO_INCREMENT for table `question`
+-- AUTO_INCREMENT für Tabelle `question`
 --
 ALTER TABLE `question`
   MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
--- AUTO_INCREMENT for table `quiz`
+-- AUTO_INCREMENT für Tabelle `quiz`
 --
 ALTER TABLE `quiz`
   MODIFY `id_quiz` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Constraints for dumped tables
+-- Constraints der exportierten Tabellen
 --
 
 --
--- Constraints for table `answer`
+-- Constraints der Tabelle `answer`
 --
 ALTER TABLE `answer`
   ADD CONSTRAINT `fk_question` FOREIGN KEY (`fk_question`) REFERENCES `question` (`id_question`) ON DELETE CASCADE;
 
 --
--- Constraints for table `question`
+-- Constraints der Tabelle `question`
 --
 ALTER TABLE `question`
   ADD CONSTRAINT `fk_quiz` FOREIGN KEY (`fk_quiz`) REFERENCES `quiz` (`id_quiz`) ON DELETE CASCADE;
 
 --
--- Constraints for table `quiz`
+-- Constraints der Tabelle `quiz`
 --
 ALTER TABLE `quiz`
   ADD CONSTRAINT `fk_geovista_l` FOREIGN KEY (`fk_geovista`) REFERENCES `geovista` (`pk_geovista`);
 
 --
--- Constraints for table `user`
+-- Constraints der Tabelle `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `fk_geovista` FOREIGN KEY (`fk_geovista`) REFERENCES `geovista` (`pk_geovista`) ON DELETE CASCADE;
