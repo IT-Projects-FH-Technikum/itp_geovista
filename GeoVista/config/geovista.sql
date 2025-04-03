@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2025 at 01:42 PM
+-- Generation Time: Apr 03, 2025 at 11:34 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -202,7 +202,7 @@ INSERT INTO `answer` (`id_answer`, `description`, `isCorrectAnswer`, `fk_questio
 (245, 'Österreich', 0, 41),
 (246, 'Frankreich', 0, 41),
 (247, 'Deutschland', 1, 41),
-(248, 'Schweiz', 1, 41),
+(248, 'Schweiz', 0, 41),
 (249, 'Spanien', 0, 42),
 (250, 'Frankreich', 1, 42),
 (251, 'Italien', 0, 42),
@@ -395,26 +395,26 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`id_question`, `description`, `image`, `fk_quiz`) VALUES
-(1, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/bruessel.jpg', 2),
-(2, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/london.jpg', 2),
-(3, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/berlin.jpg', 2),
-(4, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/lissabon.jpg', 2),
-(5, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/prag.jpg', 2),
-(6, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/wien.jpg', 2),
-(7, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/dublin.jpg', 2),
-(8, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/bratislava.jpg', 2),
-(9, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/reykjavik.jpg', 2),
-(10, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/oslo.jpg', 2),
-(11, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/vaduz.jpg', 2),
-(12, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/madrid.jpg', 2),
-(13, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/rom.jpg', 2),
-(14, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/athen.jpg', 2),
-(15, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/paris.jpg', 2),
-(16, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/sofia.jpg', 2),
-(17, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/ljubljana.jpg', 2),
-(18, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/kopenhagen.jpg', 2),
-(19, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/amsterdam.jpg', 2),
-(20, 'Um welche Hauptstadt handelt es sich?', '/res/img/question_img/capitals/budapest.jpg', 2),
+(1, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/bruessel.jpg', 2),
+(2, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/london.jpg', 2),
+(3, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/berlin.jpg', 2),
+(4, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/lissabon.jpg', 2),
+(5, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/prag.jpg', 2),
+(6, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/wien.jpg', 2),
+(7, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/dublin.jpg', 2),
+(8, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/bratislava.jpg', 2),
+(9, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/reykjavik.jpg', 2),
+(10, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/oslo.jpg', 2),
+(11, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/vaduz.jpg', 2),
+(12, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/madrid.jpg', 2),
+(13, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/rom.jpg', 2),
+(14, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/athen.jpg', 2),
+(15, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/paris.jpg', 2),
+(16, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/sofia.jpg', 2),
+(17, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/ljubljana.jpg', 2),
+(18, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/kopenhagen.jpg', 2),
+(19, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/amsterdam.jpg', 2),
+(20, 'Um welche Hauptstadt handelt es sich?', 'res/img/question_img/capitals/budapest.jpg', 2),
 (21, 'Welche Nation wird durch diese Flagge repräsentiert?', 'res/img/question_img/flags/andorra.svg', 3),
 (22, 'Welches Land gehört zu dieser Flagge?', 'res/img/question_img/flags/bosnienundherzegowina.svg', 3),
 (23, 'Zu welchem Land gehört diese Flagge?', 'res/img/question_img/flags/moldawien.svg', 3),
@@ -435,46 +435,46 @@ INSERT INTO `question` (`id_question`, `description`, `image`, `fk_quiz`) VALUES
 (38, 'Für welches Land ist diese Flagge? ', 'res/img/question_img/flags/montenegro.svg', 3),
 (39, 'Welche Nation wird durch diese Flagge symbolisiert?', 'res/img/question_img/flags/schweden.svg', 3),
 (40, 'Zu welchem Land gehört diese Flagge?', 'res/img/question_img/flags/litauen.svg', 3),
-(41, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Germany.gpx', 4),
-(42, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_France.gpx', 4),
-(43, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Spain.gpx', 4),
-(44, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Italy.gpx', 4),
-(45, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Portugal.gpx', 4),
-(46, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Slovenia.gpx', 4),
-(47, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Slovakia.gpx', 4),
-(48, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Czechia.gpx', 4),
-(49, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Hungary.gpx', 4),
-(50, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Austria.gpx', 4),
-(51, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Poland.gpx', 4),
-(52, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Croatia.gpx', 4),
-(53, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Switzerland.gpx', 4),
-(54, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Belgium.gpx', 4),
-(55, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Netherlands.gpx', 4),
-(56, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Norway.gpx', 4),
-(57, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Sweden.gpx', 4),
-(58, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Finland.gpx', 4),
-(59, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Ireland.gpx', 4),
-(60, 'Um welches Land handelt es sich?', 'res/borders/Europe/Borders_Greece.gpx', 4),
-(61, 'Um welches Land handelt es sich hier?', '/res/img/question_img/italien.png', 1),
-(62, 'Um welches Land handelt es sich hier?', '/res/img/question_img/norwegen.png', 1),
-(63, 'Um welches Land handelt es sich hier?', '/res/img/question_img/portugal.png', 1),
-(64, 'Um welches Land handelt es sich hier?', '/res/img/question_img/nordmazedonien.png', 1),
-(65, 'Um welches Land handelt es sich hier?', '/res/img/question_img/liechtenstein.png', 1),
-(66, 'Um welches Land handelt es sich hier?', '/res/img/question_img/estland.png', 1),
-(67, 'Um welches Land handelt es sich hier?', '/res/img/question_img/slowenien.png', 1),
-(68, 'Um welches Land handelt es sich hier?', '/res/img/question_img/andorra.png', 1),
-(69, 'Um welches Land handelt es sich hier?', '/res/img/question_img/kroatien.png', 1),
-(70, 'Um welches Land handelt es sich hier?', '/res/img/question_img/tschechien.png', 1),
-(71, 'Um welches Land handelt es sich hier?', '/res/img/question_img/serbien.png', 1),
-(72, 'Um welches Land handelt es sich hier?', '/res/img/question_img/san_marino.png', 1),
-(73, 'Um welches Land handelt es sich hier?', '/res/img/question_img/montenegro.png', 1),
-(74, 'Um welches Land handelt es sich hier?', '/res/img/question_img/irland.png', 1),
-(75, 'Um welches Land handelt es sich hier?', '/res/img/question_img/kosovo.png', 1),
-(76, 'Um welches Land handelt es sich hier?', '/res/img/question_img/bosnien.png', 1),
-(77, 'Um welches Land handelt es sich hier?', '/res/img/question_img/litauen.png', 1),
-(78, 'Um welches Land handelt es sich hier?', '/res/img/question_img/luxemburg.png', 1),
-(79, 'Um welches Land handelt es sich hier?', '/res/img/question_img/malta.png', 1),
-(80, 'Um welches Land handelt es sich hier?', '/res/img/question_img/albanien.png', 1);
+(41, 'Um welches Land handelt es sich?', 'DEU', 4),
+(42, 'Um welches Land handelt es sich?', 'FRA', 4),
+(43, 'Um welches Land handelt es sich?', 'ESP', 4),
+(44, 'Um welches Land handelt es sich?', 'ITA', 4),
+(45, 'Um welches Land handelt es sich?', 'PRT', 4),
+(46, 'Um welches Land handelt es sich?', 'SVN', 4),
+(47, 'Um welches Land handelt es sich?', 'SVK', 4),
+(48, 'Um welches Land handelt es sich?', 'CZE', 4),
+(49, 'Um welches Land handelt es sich?', 'HUN', 4),
+(50, 'Um welches Land handelt es sich?', 'AUT', 4),
+(51, 'Um welches Land handelt es sich?', 'POL', 4),
+(52, 'Um welches Land handelt es sich?', 'HRV', 4),
+(53, 'Um welches Land handelt es sich?', 'CHE', 4),
+(54, 'Um welches Land handelt es sich?', 'BEL', 4),
+(55, 'Um welches Land handelt es sich?', 'NLD', 4),
+(56, 'Um welches Land handelt es sich?', 'NOR', 4),
+(57, 'Um welches Land handelt es sich?', 'SWE', 4),
+(58, 'Um welches Land handelt es sich?', 'FIN', 4),
+(59, 'Um welches Land handelt es sich?', 'IRL', 4),
+(60, 'Um welches Land handelt es sich?', 'GRC', 4),
+(61, 'Um welches Land handelt es sich hier?', 'res/img/question_img/italien.png', 1),
+(62, 'Um welches Land handelt es sich hier?', 'res/img/question_img/norwegen.png', 1),
+(63, 'Um welches Land handelt es sich hier?', 'res/img/question_img/portugal.png', 1),
+(64, 'Um welches Land handelt es sich hier?', 'res/img/question_img/nordmazedonien.png', 1),
+(65, 'Um welches Land handelt es sich hier?', 'res/img/question_img/liechtenstein.png', 1),
+(66, 'Um welches Land handelt es sich hier?', 'res/img/question_img/estland.png', 1),
+(67, 'Um welches Land handelt es sich hier?', 'res/img/question_img/slowenien.png', 1),
+(68, 'Um welches Land handelt es sich hier?', 'res/img/question_img/andorra.png', 1),
+(69, 'Um welches Land handelt es sich hier?', 'res/img/question_img/kroatien.png', 1),
+(70, 'Um welches Land handelt es sich hier?', 'res/img/question_img/tschechien.png', 1),
+(71, 'Um welches Land handelt es sich hier?', 'res/img/question_img/serbien.png', 1),
+(72, 'Um welches Land handelt es sich hier?', 'res/img/question_img/san_marino.png', 1),
+(73, 'Um welches Land handelt es sich hier?', 'res/img/question_img/montenegro.png', 1),
+(74, 'Um welches Land handelt es sich hier?', 'res/img/question_img/irland.png', 1),
+(75, 'Um welches Land handelt es sich hier?', 'res/img/question_img/kosovo.png', 1),
+(76, 'Um welches Land handelt es sich hier?', 'res/img/question_img/bosnien.png', 1),
+(77, 'Um welches Land handelt es sich hier?', 'res/img/question_img/litauen.png', 1),
+(78, 'Um welches Land handelt es sich hier?', 'res/img/question_img/luxemburg.png', 1),
+(79, 'Um welches Land handelt es sich hier?', 'res/img/question_img/malta.png', 1),
+(80, 'Um welches Land handelt es sich hier?', 'res/img/question_img/albanien.png', 1);
 
 -- --------------------------------------------------------
 
@@ -513,6 +513,14 @@ CREATE TABLE `user` (
   `isAdmin` tinyint(1) NOT NULL,
   `fk_geovista` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `isAdmin`, `fk_geovista`) VALUES
+(1, 'admin', 'admin.admin@admin.com', 'AdminAdmin', 1, 1),
+(2, 'maxmustermann', 'max.mustermann@gmx.com', 'Passwort123', 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -579,7 +587,7 @@ ALTER TABLE `quiz`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

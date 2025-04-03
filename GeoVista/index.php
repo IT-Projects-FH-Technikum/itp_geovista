@@ -10,6 +10,9 @@ if ($db->connect_error) {
     exit();
 }
 
+$quizzes = getQuizzes($db);
+$_SESSION['current_question'] = 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -29,42 +32,41 @@ if ($db->connect_error) {
     <!-- NAV-BAR -->
     <?php include "./base/nav.php"; ?>
 
-    <header class="mt-4" style="">
+    <header class="mt-4">
         <h1 class="text-center text-primary">GeoVista</h1>
     </header>
 
     <!-- Welcome logged in user -->
     <?php
-    echo "<p class='mt-3 text-center'>Hallo, <span class='fw-bold'>Demouser</span>!</p>";
+    $user = getUserDetails($db, '2'); //$_SESSION["userid"]
+    if ($user) echo "<p class='mt-3 text-center'>Hallo, <span class='fw-bold'>" . $user["username"] . "</span>!</p>";
     ?>
 
     <main class="m-5">
 
-        <div class="d-flex justify-content-center flex-wrap gap-4" onclick="location.href='level1.php';">
-            <div class="card" style="width: 20rem;">
+        <div class="d-flex justify-content-center flex-wrap gap-4">
+            <?php
+            if($quizzes) {
+                foreach ($quizzes as $quiz) {
+                    echo "<div class='card' style='width: 20rem;' onclick=\"location.href='level.php?quiz=" . $quiz["id_quiz"] . "';\">";
+                    echo "<img class='card-img-top' src='" . $quiz["icon"] . "' alt='Quiz zu " . $quiz["name"] . "'>";
+                    echo "<div class='card-body'>";
+                    echo "<h5 class='card-title'>" . $quiz["name"] . "</h5>";
+                    echo "</div>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p class='mt-3 text-center'>Keine Quizzes vorhanden.</p>";
+            }
+            ?>
+
+            <!-- <div class="card" style="width: 20rem;" onclick="location.href='level.php?quiz=';">
                 <img class="card-img-top" src="res/img/level_icons/level1" alt="Level1">
                 <div class="card-body">
                     <h5 class="card-title">Level 1</h5>
                 </div>
-            </div>
-            <div class="card" style="width: 20rem;">
-                <img class="card-img-top" src="res/img/level_icons/level2" alt="Level2">
-                <div class="card-body">
-                    <h5 class="card-title">Level 2</h5>
-                </div>
-            </div>
-            <div class="card" style="width: 20rem;">
-                <img class="card-img-top" src="res/img/level_icons/level3" alt="Level3">
-                <div class="card-body">
-                    <h5 class="card-title">Level 3</h5>
-                </div>
-            </div>
-            <div class="card" style="width: 20rem;">
-                <img class="card-img-top" src="res/img/level_icons/level4" alt="Level4">
-                <div class="card-body">
-                    <h5 class="card-title">Level 4</h5>
-                </div>
-            </div>
+            </div> -->
+
         </div>
 
     </main>

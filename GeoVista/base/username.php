@@ -12,6 +12,7 @@ if ($db->connect_error) {
 }
 
 /* only for logged in user */
-echo "<p class='mt-3 ms-0 ms-xl-4 text-center text-xl-start'>Angemeldet als: <span class='fw-bold'>Demouser</span></p>";
+$user = getUserDetails($db, '2'); //$_SESSION["userid"]
+if ($user) echo "<p class='mt-3 ms-0 ms-xl-4 text-center text-xl-start'>Angemeldet als: <span class='fw-bold'>" . $user["username"] . "</span></p>";
 
 ?>
