@@ -611,13 +611,6 @@ ALTER TABLE `question`
 --
 ALTER TABLE `quiz`
   ADD CONSTRAINT `fk_geovista_l` FOREIGN KEY (`fk_geovista`) REFERENCES `geovista` (`pk_geovista`);
-  ADD CONSTRAINT `fk_quiz` FOREIGN KEY (`fk_quiz`) REFERENCES `quiz` (`id_quiz`) ON DELETE CASCADE;
-
---
--- Constraints der Tabelle `quiz`
---
-ALTER TABLE `quiz`
-  ADD CONSTRAINT `fk_geovista_l` FOREIGN KEY (`fk_geovista`) REFERENCES `geovista` (`pk_geovista`);
 
 --
 -- Constraints der Tabelle `user`
