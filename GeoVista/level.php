@@ -100,7 +100,7 @@ if ($current_question_index >= count($questions)) {
                 <?php endif; ?>
 
                 <?php if(!$finishedQuiz): ?>
-                    
+               
                     <?php if($_GET['quiz'] === '4' || $_GET['quiz'] === '1'): ?>
                         <div id="map"></div>
                         <script type="module">
@@ -113,6 +113,7 @@ if ($current_question_index >= count($questions)) {
 
                             let test = await loadCountryData(map, "<?php echo $current_question["image"] ?>");
                         </script>
+
                     <?php else: ?>
                         <img class="card-img-top" style="width: 400px;" src="<?php echo $current_question["image"] ?>" alt="Bild zu Frage <?php echo $current_question_index + 1; ?> Quiz <?php echo $quizName; ?>">
                     <?php endif; ?>
