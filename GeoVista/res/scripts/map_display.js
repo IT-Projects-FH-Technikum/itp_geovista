@@ -1,8 +1,10 @@
 
 // get geojson
 async function getCountryData(countryCode) {
-    const response = await fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/' + countryCode + '.geo.json');
-    return await response.json();
+    const response = await fetch('./res/country_data/countries.geo.json');
+    return await response.json().features.filter( country => {
+        return country.properties.ISO_A3 === countryCode;
+    });
 }
 
 // load geoJSON data to map
