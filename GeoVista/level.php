@@ -25,7 +25,12 @@ function shuffle_question($allQuestions, $count)
     shuffle($uniqueQuestions);
     return array_slice($uniqueQuestions, 0, min($count, count($uniqueQuestions)));
 }
-$questions = shuffle_question($allQuestions, 5);
+
+//Set shuffled questions in session
+if (!isset($_SESSION['questions'])) {
+    $_SESSION['questions'] = shuffle_question($allQuestions, 15);
+}
+$questions = $_SESSION['questions'];
 
 //Set the current question index
 if (!isset($_SESSION['current_question'])) {
@@ -59,7 +64,7 @@ if ($current_question_index >= count($questions)) {
 <html lang="en">
 
 <head>
-    <title>GeoVista - Home</title>
+    <title>GeoVista - <?php echo $quizName ?></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"

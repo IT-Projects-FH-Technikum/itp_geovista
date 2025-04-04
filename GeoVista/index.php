@@ -11,7 +11,12 @@ if ($db->connect_error) {
 }
 
 $quizzes = getQuizzes($db);
-$_SESSION['current_question'] = 0;
+
+//Reset session variables for new quiz
+if (isset($_SESSION['questions']))
+    unset($_SESSION['questions']);
+if (isset($_SESSION['current_question']))
+    unset($_SESSION['current_question']);
 
 ?>
 
@@ -39,14 +44,17 @@ $_SESSION['current_question'] = 0;
     <!-- Welcome logged in user -->
     <?php
     $user = getUserDetails($db, '2'); //$_SESSION["userid"]
-    if ($user) echo "<p class='mt-3 text-center'>Hallo, <span class='fw-bold'>" . $user["username"] . "</span>!</p>";
+    if ($user)
+        echo "<p class='mt-3 text-center'>Hallo, <span class='fw-bold'>" . $user["username"] . "</span>!</p>";
     ?>
 
     <main class="m-5">
 
+        <p class="pb-4 text-center">Wähle ein Quiz:</p>
+
         <div class="d-flex justify-content-center flex-wrap gap-4">
             <?php
-            if($quizzes) {
+            if ($quizzes) {
                 foreach ($quizzes as $quiz) {
                     echo "<div class='card' style='width: 20rem;' onclick=\"location.href='level.php?quiz=" . $quiz["id_quiz"] . "';\">";
                     echo "<img class='card-img-top' src='" . $quiz["icon"] . "' alt='Quiz zu " . $quiz["name"] . "'>";
