@@ -60,13 +60,18 @@ function getQuestions($db, $quiz_id)
 {
     $questions = [];
     try {
+        //Fetch all questions for the quiz
         $sql = "SELECT id_question, description as q_desc, image FROM question WHERE fk_quiz = ? ORDER BY id_question";
         $stmt = $db->prepare($sql);
-        $stmt->bind_param("i", $quiz_id); // "i" specifies that the parameter is an integer
+        $stmt->bind_param("i", $quiz_id); //"i" specifies that the parameter is an integer
         $stmt->execute();
         $result = $stmt->get_result();
+
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                //Fetch answers for each question
+                $answers = getAnswersToQuestion($db, $row['id_question']);
+                $row['answers'] = $answers; //Add answers as a nested array
                 $questions[] = $row;
             }
         }

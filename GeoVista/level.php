@@ -10,7 +10,9 @@ if ($db->connect_error) {
     exit();
 }
 
-/* if GET isn't set exist -> redirect to index.php */
+$questionNum = 15;
+
+/* if GET isn't set -> redirect to index.php */
 if (!isset($_GET["quiz"])) {
     header("Location: index.php");
     exit();
@@ -19,39 +21,18 @@ if (!isset($_GET["quiz"])) {
 $allQuestions = getQuestions($db, htmlspecialchars($_GET["quiz"]));
 $quizName = getQuizName($db, htmlspecialchars($_GET["quiz"]));
 
-function shuffle_question($allQuestions, $count)
+function shuffleAndSliceQuestions(array $allQuestions, int $limit = 15): array
 {
-    $uniqueQuestions = array_unique($allQuestions, SORT_REGULAR);
-    shuffle($uniqueQuestions);
-    return array_slice($uniqueQuestions, 0, min($count, count($uniqueQuestions)));
-}
-$questions = shuffle_question($allQuestions, 5);
-
-//Set the current question index
-if (!isset($_SESSION['current_question'])) {
-    $_SESSION['current_question'] = 0;
-} else {
-    //move to the next question
-    if (isset($_GET['next'])) {
-        $_SESSION['current_question']++;
-        header("Location: " . $_SERVER['PHP_SELF'] . "?quiz=" . urlencode($_GET['quiz']));
-        exit();
-    }
+    shuffle($allQuestions);
+    return array_slice($allQuestions, 0, $limit);
 }
 
-//Don't go out of bounds
-$current_question_index = $_SESSION['current_question'];
-$finishedQuiz = false;
-$current_question;
-$answers;
-
-if ($current_question_index >= count($questions)) {
-    $_SESSION['current_question'] = 0;
-    $finishedQuiz = true;
-} else {
-    $current_question = $questions[$current_question_index];
-    $answers = getAnswersToQuestion($db, $current_question['id_question']);
+//Set shuffled questions in session
+if (!isset($_SESSION['questions'])) {
+    $_SESSION['questions'] = shuffleAndSliceQuestions($allQuestions, $questionNum);
 }
+$questions = $_SESSION['questions'];
+
 
 ?>
 
@@ -59,25 +40,33 @@ if ($current_question_index >= count($questions)) {
 <html lang="en">
 
 <head>
-    <title>GeoVista - Home</title>
+    <title>GeoVista - <?php echo $quizName ?></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="res/scripts/evaluateQuestion.js"></script>
-
+    <script type="module" src="res/scripts/writeQuestions.js"></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
 
     <!-- NAV-BAR -->
     <?php include "./base/nav.php"; ?>
+    
+    <!-- PROGRESSBAR -->
+    <div class="progress position-sticky" style="top: 0; z-index: 1000;">
+        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            aria-valuenow="<?php echo $current_question_index + 1; ?>" 
+            aria-valuemin="0" 
+            aria-valuemax="<?php echo $questionNum; ?>">
+        </div>
+    </div>
 
     <!-- USERNAME -->
     <?php include "./base/username.php"; ?>
 
     <!-- LEAFLET PLUGIN -->
-    <?php include "./base/plugins.php"?>
+    <?php include "./base/plugins.php" ?>
 
     <header class="">
         <h1 class="text-center text-primary"><?php echo $quizName ?></h1>
@@ -93,50 +82,12 @@ if ($current_question_index >= count($questions)) {
         <div
             class="border border-5 border-black rounded p-4 mt-5 d-flex flex-column align-items-center justify-content-center">
 
-            <form id="questionForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET"
-                class="card my-2" quizState="<?php echo $finishedQuiz ? 'finished' : 'active'; ?>">
-                <?php if (isset($_GET['quiz'])): ?>
-                    <input type="hidden" name="quiz" value="<?php echo htmlspecialchars($_GET['quiz']); ?>">
-                <?php endif; ?>
+            <!-- Pass questions array to ts -->
+            <div id="questionsContainer" data-questions='<?php echo json_encode($questions); ?>'></div>
+            <div id="quizId" data-quizId='<?php echo htmlspecialchars($_GET['quiz']); ?>'></div>
 
-                <?php if(!$finishedQuiz): ?>
-               
-                    <?php if($_GET['quiz'] === '4' || $_GET['quiz'] === '1'): ?>
-                        <div id="map"></div>
-                        <script type="module">
-                            import { getLeafletModule, loadCountryData } from './res/scripts/map_display.js';
+            <div id="mainContent"></div>
 
-                            // INITIALIZE MAP
-                            const mapContainer = document.getElementById('map');
-                            const borderImageUrl = 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png';
-                            const map = getLeafletModule(mapContainer, borderImageUrl, <?php if ($_GET['quiz'] === '4') { echo false; } else if ($_GET['quiz'] === '1') { echo true; }?>);
-
-                            let test = await loadCountryData(map, "<?php echo $current_question["image"] ?>");
-                        </script>
-
-                    <?php else: ?>
-                        <img class="card-img-top" style="width: 400px;" src="<?php echo $current_question["image"] ?>" alt="Bild zu Frage <?php echo $current_question_index + 1; ?> Quiz <?php echo $quizName; ?>">
-                    <?php endif; ?>
-                    
-                    <div class="card-body">
-                        <h5 class="card-title">Frage <?php echo $current_question_index + 1; ?></h5>
-                        <p class="card-text"><?php echo $current_question['q_desc']; ?></p>
-                        <section>
-                            <?php foreach ($answers as $answer): ?>
-                                <input type="radio" id="<?php echo $answer['id_answer']; ?>"
-                                    name="question<?php echo $current_question_index; ?>"
-                                    value="<?php echo $answer['a_desc']; ?>"
-                                    data-correct="<?php echo $answer['isCorrectAnswer'] == 1 ? 'true' : 'false'; ?>" required>
-                                <label for="<?php echo $answer['id_answer']; ?>"><?php echo $answer['a_desc']; ?></label><br>
-                            <?php endforeach; ?>
-                        </section>
-                    </div>
-                    <button id="checkQuestionButton" type="submit" class="btn btn-primary" value="1">Prüfen</button>
-                <?php else: ?>
-                    <p>Quiz fertig</p>
-                <?php endif; ?>
-
-            </form>
         </div>
 
     </main>
