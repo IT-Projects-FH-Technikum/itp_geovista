@@ -75,8 +75,8 @@ $questions = $_SESSION['questions'];
     <main class="m-5">
 
         <div class="text-center">
-            <button class="btn btn-primary" onclick="location.href='index.php';">Zurück zu allen
-                Schwierigkeitsstufen</button>
+            <button class="btn btn-primary px-5 py-2 rounded-4 fw-bold" onclick="location.href='index.php';">Zurück zu allen
+                Quizzes</button>
         </div>
 
         <div

@@ -1,6 +1,8 @@
 <?php
 //Access to database
 
+
+/* User */
 function getUserDetails($db, $id)
 {
     $result = null;
@@ -15,6 +17,37 @@ function getUserDetails($db, $id)
         echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
     } finally {
         return $result;
+    }
+}
+
+function updateUserDetails($db, $id, $email, $username, $password)
+{
+    try {
+        $sql = "UPDATE user SET email = ?, username = ?, password = ? WHERE id_user = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("sssi", $email, $username, $password, $id);
+        $stmt->execute();
+        $stmt->close();
+    } catch (Exception $e) {
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
+    }
+}
+
+function getUsernames($db)
+{
+    $users = [];
+    try {
+        $sql = "SELECT username FROM user ORDER BY id_user";
+        $result = $db->query($sql);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row["username"];
+            }
+        }
+    } catch (Exception $e) {
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
+    } finally {
+        return $users;
     }
 }
 
