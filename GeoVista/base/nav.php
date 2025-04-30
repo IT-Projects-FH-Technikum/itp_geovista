@@ -24,9 +24,11 @@ if (session_status() == PHP_SESSION_NONE)
             </li>
 
             <!-- Only for admin -->
-            <li class="nav-item">
-                <a class="nav-link" href="">Userverwaltung</a>
-            </li>
+            <?php if (getRole($db, '1') === "Admin"): ?> <!-- TODO SESSION ROLE -->
+                <li class="nav-item">
+                    <a class="nav-link" href="./userlist.php">Usermanagement</a>
+                </li>
+            <?php endif; ?>
         </ul>
 
         <!-- Profil-Icon -> only for logged in users -->
