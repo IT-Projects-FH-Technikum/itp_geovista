@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 03. Apr 2025 um 22:28
+-- Erstellungszeit: 09. Apr 2025 um 12:24
 -- Server-Version: 10.4.22-MariaDB
 -- PHP-Version: 8.1.2
 
@@ -476,7 +476,6 @@ INSERT INTO `question` (`id_question`, `description`, `image`, `fk_quiz`) VALUES
 (79, 'Um welches Land handelt es sich hier?', 'MLT', 1),
 (80, 'Um welches Land handelt es sich hier?', 'ALB', 1);
 
-
 -- --------------------------------------------------------
 
 --
@@ -495,10 +494,10 @@ CREATE TABLE `quiz` (
 --
 
 INSERT INTO `quiz` (`id_quiz`, `name`, `icon`, `fk_geovista`) VALUES
-(1, 'Länder', 'res/img/quiz_icons/icon-laenderFarbe.jpg', 1),
-(2, 'Hauptstädte', 'res/img/quiz_icons/icon-hauptstaedte.jpg', 1),
-(3, 'Flaggen', 'res/img/quiz_icons/icon-flaggen.jpg', 1),
-(4, 'Länder (Umrisse)', 'res/img/quiz_icons/icon-laenderUmriss.png', 1);
+(1, 'Länder', 'res/img/quiz_icons/icon-laenderFarbe.svg', 1),
+(2, 'Hauptstädte', 'res/img/quiz_icons/icon-hauptstaedte.svg', 1),
+(3, 'Flaggen', 'res/img/quiz_icons/icon-flaggen.svg', 1),
+(4, 'Länder (Umrisse)', 'res/img/quiz_icons/icon-laenderUmriss.svg', 1);
 
 -- --------------------------------------------------------
 
