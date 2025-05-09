@@ -1,6 +1,8 @@
 <?php
 //Access to database
 
+
+/* User */
 function getUserDetails($db, $id)
 {
     $result = null;
@@ -15,6 +17,72 @@ function getUserDetails($db, $id)
         echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
     } finally {
         return $result;
+    }
+}
+
+function getRole($db, $id)
+{
+    $result = null;
+    try {
+        $sql = "SELECT isAdmin FROM user WHERE id_user = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("i", $id); // "i" specifies that the parameter is an integer
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_array();
+        $stmt->close();
+    } catch (Exception $e) {
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
+    } finally {
+        return $result["isAdmin"] == 1 ? "Admin" : "User";
+    }
+}
+
+function updateUserDetails($db, $id, $email, $username, $password, $isAdmin)
+{
+    try {
+        $sql = "UPDATE user SET email = ?, username = ?, password = ?, isAdmin = ? WHERE id_user = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("sssii", $email, $username, $password, $isAdmin, $id);
+        $stmt->execute();
+        $stmt->close();
+    } catch (Exception $e) {
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
+    }
+}
+
+function getUsers($db)
+{
+    $users = [];
+    try {
+        $sql = "SELECT * FROM user ORDER BY id_user";
+        $result = $db->query($sql);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row;
+            }
+        }
+    } catch (Exception $e) {
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
+    } finally {
+        return $users;
+    }
+}
+
+function getUsernames($db)
+{
+    $users = [];
+    try {
+        $sql = "SELECT username FROM user ORDER BY id_user";
+        $result = $db->query($sql);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row["username"];
+            }
+        }
+    } catch (Exception $e) {
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
+    } finally {
+        return $users;
     }
 }
 

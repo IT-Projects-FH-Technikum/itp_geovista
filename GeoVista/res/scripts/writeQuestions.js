@@ -197,12 +197,17 @@ function handleQuiz(questions) {
 document.addEventListener("DOMContentLoaded", function () {
     //if quiz is reloaded, redirect to index.php
     const reloaded = sessionStorage.getItem("quizReloaded");
-    if (reloaded) {
-        sessionStorage.removeItem("quizReloaded");
-        window.location.href = "./index.php";
-        return;
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        //Real Reload:
+        if (reloaded) {
+            sessionStorage.removeItem("quizReloaded");
+            window.location.href = "./index.php";
+        }
     }
-    sessionStorage.setItem("quizReloaded", "true");
+    else {
+        //Normally laoded after selecting quiz on index.php:
+        sessionStorage.setItem("quizReloaded", "true");
+    }
     const questionsContainer = document.getElementById('questionsContainer');
     const questions = JSON.parse(questionsContainer.dataset.questions);
     handleQuiz(questions);

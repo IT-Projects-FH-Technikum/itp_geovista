@@ -187,7 +187,7 @@ function createQuizEvaluation(questions: Question[]): void {
     const mainContent = document.getElementById('mainContent') as HTMLDivElement;
     mainContent.innerHTML = ""; //Clear the main content
 
-    const percentScore: number= (countCorrectAnswers / questions.length) * 100;
+    const percentScore: number = (countCorrectAnswers / questions.length) * 100;
     const passingText: string = percentScore >= 50 ? "Gut gemacht, du hast bestanden!" : "Leider hast du nicht bestanden! Nächstes Mal wird es besser!";
     const passingIcon: string = percentScore >= 50 ? "✔" : "✘";
     const passingClass: string = percentScore >= 50 ? "text-success" : "text-danger";
@@ -214,14 +214,14 @@ function createQuizEvaluation(questions: Question[]): void {
           <div class="border rounded p-3 bg-light">
             <div class="text-muted small">DEINE PUNKTE</div>
             <div class="fs-2 fw-bold ${passingClass}">${countCorrectAnswers}</div>
-            <div class="text-muted small">BENÖTIGT: ${(questions.length/2).toFixed(0)}</div>
+            <div class="text-muted small">BENÖTIGT: ${(questions.length / 2).toFixed(0)}</div>
           </div>
         </div>
       </div>
       `;
     mainContent.appendChild(evaluationText);
 }
-  
+
 
 function handleQuiz(questions: Question[]): void {
     if (!isQuizFinished(questions)) {
@@ -235,12 +235,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //if quiz is reloaded, redirect to index.php
     const reloaded = sessionStorage.getItem("quizReloaded");
-    if (reloaded) {
-        sessionStorage.removeItem("quizReloaded");
-        window.location.href = "./index.php";
-        return;
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        //Real Reload:
+        if (reloaded) {
+            sessionStorage.removeItem("quizReloaded");
+            window.location.href = "./index.php";
+        }
+    } else {
+        //Normally laoded after selecting quiz on index.php:
+        sessionStorage.setItem("quizReloaded", "true");
     }
-    sessionStorage.setItem("quizReloaded", "true")
 
     const questionsContainer = document.getElementById('questionsContainer') as HTMLDivElement;
     const questions: Question[] = JSON.parse(questionsContainer.dataset.questions!);
