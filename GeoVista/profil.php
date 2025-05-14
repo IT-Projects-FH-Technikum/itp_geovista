@@ -49,11 +49,7 @@ if (isset($user)) { //$_SESSION["user"]
         } else {
             $usernames = getUsernames($db);
 
-<<<<<<< HEAD
             if (in_array($_POST["username"], $usernames) && $username != $_POST["username"]) {
-=======
-            if (in_array($username, $usernames) && $username != $_POST["username"]) {
->>>>>>> 72c8f86157d13f1237d4d18c9cede46f3561e6ec
                 $errorMessages[] = "Der Username <i>" . $_POST["username"] . "</i> existiert bereits. Bitte wähle einen anderen!";
                 $errorFields["username"] = true;
             } else if (strlen($_POST["username"]) <= 3) {
