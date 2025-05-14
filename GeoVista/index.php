@@ -3,10 +3,10 @@ if (session_status() == PHP_SESSION_NONE)
     session_start();
 
 /* if user isn't logged in -> redirect to login without showing this page */
-/*if (!isset($_SESSION["userid"])) {
+if (!isset($_SESSION["userid"])) {
     header("Location: login.php");
     exit();
-}*/
+}
 
 require_once('config/dbaccess.php'); //to retrieve connection detail
 require_once('config/db_utils.php'); //functions for database access

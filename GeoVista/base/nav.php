@@ -36,9 +36,15 @@ if (session_status() == PHP_SESSION_NONE)
                 alt="Profil Icon" style="width: 40px;"></a>
 
         <!-- Login/Logout -->
-        <div class="nav-item">
-            <a class="btn btn-light" href="" role="button">Login/Logout</a> <!-- depending on session -->
-        </div>
+        <?php if (!isset($_SESSION['userid'])): ?>
+            <div class="nav-item">
+                <a class="btn btn-light" href="./login.php" role="button">Login</a>
+            </div>
+        <?php else: ?>
+            <div class="nav-item">
+                <a class="btn btn-light" href="./logout.php" role="button">Logout</a>
+            </div>
+        <?php endif; ?>
 
     </div>
 

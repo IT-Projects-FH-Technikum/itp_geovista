@@ -3,10 +3,10 @@ if (session_status() == PHP_SESSION_NONE)
     session_start();
 
 /* if user isn't logged in -> redirect to login without showing this page */
-/*if (!isset($_SESSION["userid"])) {
+if (!isset($_SESSION["userid"])) {
     header("Location: login.php");
     exit();
-}*/
+}
 
 require_once('config/dbaccess.php'); //to retrieve connection detail
 require_once('config/db_utils.php'); //functions for database access
@@ -23,8 +23,8 @@ $errorFields["email"] = false;
 $errorFields["username"] = false;
 $errorFields["pwd"] = false;
 
-if (isset($user)) { //$_SESSION["user"]
-    $userID = isset($_GET["selected-user"]) ? $_GET["selected-user"] : '2'; //$_SESSION["userid"]
+if ($_SESSION["userid"]) {
+    $userID = isset($_GET["selected-user"]) ? $_GET["selected-user"] : $_SESSION["userid"];
 
     $userDetails = getUserDetails($db, $userID);
     $username = $userDetails["username"];
@@ -70,10 +70,14 @@ if (isset($user)) { //$_SESSION["user"]
         }
 
         //Password
-        //check for old password
-/*         if ($_POST["oldPassword"] != '') { //is password changed?
+        if (isset($_GET["selected-user"]) && $_SESSION['userrole'] === "Admin") {
+            $_POST["oldPassword"] = $pwd;
+        }
+
+        if ($_POST["oldPassword"] != '') { //is password changed?
             //Syntax: password_verify(password, hashed_password)
-            if ((!password_verify($_POST["oldPassword"], $pwd)) && $_POST["oldPassword"] != $pwd) { //for admin users $_POST["oldPassword"] is already hashed -> need to compare directly ($_POST["oldPassword"] != $pwd)
+            if ((!password_verify($_POST["oldPassword"], $pwd)) && $_POST["oldPassword"] != $pwd) {  //2. condition only for admin (oldpassword already hashed)
+            //if ($_POST["oldPassword"] != $pwd) {
                 $errorMessages[] = "Passwort ist falsch!";
                 $errorFields["pwd"] = true;
             } else if (isset($_POST["newPassword1"]) && $_POST["oldPassword"] == $_POST["newPassword1"]) { //check if new password is the same as the old one
@@ -89,33 +93,6 @@ if (isset($user)) { //$_SESSION["user"]
                     $errorFields["pwd"] = true;
                 } else {
                     $pwd = password_hash($_POST["newPassword1"], PASSWORD_DEFAULT);
-                }
-            }
-        } else if ($_POST["newPassword1"] != '' || $_POST["newPassword2"] != '') {
-            $errorMessages[] = "Die Eingabe des alten Passworts ist für die Änderung des Passworts erforderlich!";
-            $errorFields["pwd"] = true;
-        } */
-        if (isset($_GET["selected-user"]) && $_SESSION['userrole'] === "Admin") {
-            $_POST["oldPassword"] = $pwd;
-        }
-
-        if ($_POST["oldPassword"] != '') { //is password changed?
-            if ($_POST["oldPassword"] != $pwd) {
-                $errorMessages[] = "Passwort ist falsch!";
-                $errorFields["pwd"] = true;
-            } else if (isset($_POST["newPassword1"]) && $_POST["oldPassword"] == $_POST["newPassword1"]) { //check if new password is the same as the old one
-                $errorMessages[] = "Neues Passwort kann nicht das alte Passwort sein!";
-                $errorFields["pwd"] = true;
-            } else if (($_POST["oldPassword"] != '' && $_POST["newPassword1"] != '') && isset($_POST["newPassword2"])) {  //check if new password matches criteria and change when its right
-                if (!preg_match("#(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$#", $_POST["newPassword1"])) { //password criteria
-                    $errorMessages[] = "Passwort muss mindestens 8 Zeichen lang sein und eine Ziffer, Groß- und Kleinbuchstaben und ein Sonderzeichen beinhalten!";
-                    $errorFields["pwd"] = true;
-                }
-                if ($_POST["newPassword1"] != $_POST["newPassword2"]) {
-                    $errorMessages[] = "Die beiden neuen Passwörter stimmen nicht überein!";
-                    $errorFields["pwd"] = true;
-                } else {
-                    $pwd = ($_POST["newPassword1"]);
                 }
             }
         } else if ($_POST["newPassword1"] != '' || $_POST["newPassword2"] != '') {
@@ -192,9 +169,8 @@ if (isset($user)) { //$_SESSION["user"]
                     <label for="email" class="form-label fw-semibold">E-Mail-Adresse <span
                             class="text-primary">*</span></label>
                     <input type="email" class="form-control" <?php if ($errorFields['email'])
-                        echo 'is-invalid'; ?> id="email" name="email" value="<?php echo isset($user) ? htmlspecialchars($mail) : ''; ?>"
+                        echo 'is-invalid'; ?> id="email" name="email" value="<?php echo isset($_SESSION['userid']) ? htmlspecialchars($mail) : ''; ?>"
                         required>
-                    <!-- $_SESSION['user'] -->
                 </div>
 
                 <!-- USERNAME -->
@@ -203,9 +179,8 @@ if (isset($user)) { //$_SESSION["user"]
                             class="text-primary">*</span></label>
                     <input type="text" class="form-control <?php if ($errorFields['username'])
                         echo 'is-invalid'; ?>" id="user" name="username"
-                        value="<?php echo isset($user) ? htmlspecialchars($username) : ''; ?>" required
+                        value="<?php echo isset($_SESSION['userid']) ? htmlspecialchars($username) : ''; ?>" required
                         autocomplete="username">
-                    <!-- $_SESSION['user'] -->
                 </div>
 
                 <!-- PASSWORD -->
