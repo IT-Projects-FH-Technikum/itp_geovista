@@ -1,7 +1,3 @@
- Create a description of all steps which are necessary to deploy your application. think about dependencies to other applications or libraries. (approx. 2-5 pages)
-
-
-
 # GeoVista - Deployment Manual
 ### Der neue Blick auf die Welt
 
