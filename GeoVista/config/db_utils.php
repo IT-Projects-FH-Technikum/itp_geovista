@@ -3,6 +3,23 @@
 
 
 /* User */
+function getUserId($db, $username)
+{
+    $result = null;
+    try {
+        $sql = "SELECT id_user FROM user WHERE username = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_array()["id_user"];
+        $stmt->close();
+    } catch (Exception $e) {
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
+    } finally {
+        return $result;
+    }
+}
+
 function getUserDetails($db, $id)
 {
     $result = null;
@@ -167,6 +184,20 @@ function getAnswersToQuestion($db, $id_question){
         echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
     } finally {
         return $answers;
+    }
+}
+
+
+function saveRegistration($db, $username, $email, $password) {
+    try {
+        $sql = "INSERT INTO user (username, email, password, isAdmin, fk_geovista) 
+                VALUES (?, ?, ?, 0, 1);";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("sss", $username, $email, $password);
+        $stmt->execute();
+        $stmt->close();
+    } catch (Exception $e) {
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
     }
 }
 

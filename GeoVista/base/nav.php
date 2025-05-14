@@ -20,11 +20,11 @@ if (session_status() == PHP_SESSION_NONE)
                 <a class="nav-link" href="./index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">...</a>
+                <a class="nav-link" href="./registration.php">Registrieren</a>
             </li>
 
             <!-- Only for admin -->
-            <?php if (getRole($db, '1') === "Admin"): ?> <!-- TODO SESSION ROLE -->
+            <?php if ($_SESSION['userrole'] === "Admin"): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="./userlist.php">Usermanagement</a>
                 </li>

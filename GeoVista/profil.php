@@ -2,6 +2,12 @@
 if (session_status() == PHP_SESSION_NONE)
     session_start();
 
+/* if user isn't logged in -> redirect to login without showing this page */
+/*if (!isset($_SESSION["userid"])) {
+    header("Location: login.php");
+    exit();
+}*/
+
 require_once('config/dbaccess.php'); //to retrieve connection detail
 require_once('config/db_utils.php'); //functions for database access
 $db = new mysqli($host, $user, $password, $database);
@@ -89,7 +95,7 @@ if (isset($user)) { //$_SESSION["user"]
             $errorMessages[] = "Die Eingabe des alten Passworts ist für die Änderung des Passworts erforderlich!";
             $errorFields["pwd"] = true;
         } */
-        if (isset($_GET["selected-user"]) && getRole($db, '1') === "Admin") { //TODO: SESSION[user] bzw isAdmin SESSION
+        if (isset($_GET["selected-user"]) && $_SESSION['userrole'] === "Admin") {
             $_POST["oldPassword"] = $pwd;
         }
 
@@ -146,11 +152,10 @@ if (isset($user)) { //$_SESSION["user"]
     </header>
 
     <main class="container w-75 my-5">
-        <?php if (isset($_GET["selected-user"]) && getRole($db, '1') === "Admin"): ?>
-            <!-- TODO: SESSION[user] bzw isAdmin SESSION -->
+        <?php if (isset($_GET["selected-user"]) && $_SESSION['userrole'] === "Admin"): ?>
             <div class="text-center mb-5">
-                <button class="btn btn-primary px-5 py-2 rounded-4 fw-bold"
-                    onclick="location.href='userlist.php';">Zurück zur Usermanagement</button>
+                <button class="btn btn-primary px-5 py-2 rounded-4 fw-bold" onclick="location.href='userlist.php';">Zurück
+                    zur Usermanagement</button>
             </div>
         <?php endif; ?>
 
@@ -163,8 +168,7 @@ if (isset($user)) { //$_SESSION["user"]
             <div class="p-5 border rounded-4 shadow-sm bg-white">
 
                 <!-- Admin: edit selected user from usermanagement.php-> only visible for admin, for changing the activity status of the user-->
-                <?php if (isset($_GET["selected-user"]) && getRole($db, '1') === "Admin"): ?>
-                    <!-- TODO: SESSION[user] bzw isAdmin SESSION -->
+                <?php if (isset($_GET["selected-user"]) && $_SESSION['userrole'] === "Admin"): ?>
                     <div class="mb-4">
                         <label class="form-label fw-semibold d-block mb-2">Rolle auswählen <span
                                 class="text-primary">*</span></label>

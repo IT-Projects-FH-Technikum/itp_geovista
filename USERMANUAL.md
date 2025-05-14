@@ -3,6 +3,12 @@
 ## Projektbeschreibung
 Bei GeoVista handelt es sich um eine interaktive Quiz-Website mit geografischen Thematiken. Hierbei können User Multiple-Choice Fragen beantworten können.
 
+## Login
+Zu Beginn wird der User auf die Login Seite geleitet. Dort hat er die Möglichkeit sich mit seinem Usernamen und Passwort anzumelden.
+
+## Registrieren
+Falls der User noch keinen Account hat, kann er mit dem `Registrieren` Button auf die Registrierungs-Seite weitergeleitet werden. Auf dieser wird er nach seinen Daten, E-Mail-Adresse, Username und Passwort, gefragt und bekommt die Möglichkeit einen Account anzulegen.
+
 ## ❓ Quizarten
 Beim Öffnen der Webseite erscheinen vier verschiedene Quizzes. Von diesen vier kann eines ausgewählt und mit dem Spiel begonnen werden!
 

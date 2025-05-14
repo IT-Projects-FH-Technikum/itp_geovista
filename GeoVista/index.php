@@ -2,6 +2,12 @@
 if (session_status() == PHP_SESSION_NONE)
     session_start();
 
+/* if user isn't logged in -> redirect to login without showing this page */
+/*if (!isset($_SESSION["userid"])) {
+    header("Location: login.php");
+    exit();
+}*/
+
 require_once('config/dbaccess.php'); //to retrieve connection detail
 require_once('config/db_utils.php'); //functions for database access
 $db = new mysqli($host, $user, $password, $database);
@@ -40,7 +46,7 @@ if (isset($_SESSION['questions']))
 
     <!-- Welcome logged in user -->
     <?php
-    $user = getUserDetails($db, '2'); //$_SESSION["userid"]
+    $user = getUserDetails($db, $_SESSION['userid']);
     if ($user)
         echo "<p class='mt-3 text-center'>Hallo, <span class='fw-bold'>" . $user["username"] . "</span>!</p>";
     ?>

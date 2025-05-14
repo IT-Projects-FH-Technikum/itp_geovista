@@ -2,6 +2,12 @@
 if (session_status() == PHP_SESSION_NONE)
     session_start();
 
+/* if user isn't logged in -> redirect to login without showing this page */
+/*if (!isset($_SESSION["userid"])) {
+    header("Location: login.php");
+    exit();
+}*/
+
 require_once('config/dbaccess.php'); //to retrieve connection detail
 require_once('config/db_utils.php'); //functions for database access
 $db = new mysqli($host, $user, $password, $database);
@@ -52,13 +58,12 @@ $questions = $_SESSION['questions'];
 
     <!-- NAV-BAR -->
     <?php include "./base/nav.php"; ?>
-    
+
     <!-- PROGRESSBAR -->
     <div class="progress position-sticky" style="top: 0; z-index: 1000;">
         <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-            aria-valuenow="<?php echo $current_question_index + 1; ?>" 
-            aria-valuemin="0" 
-            aria-valuemax="<?php echo $questionNum; ?>">
+            aria-valuenow="<?php echo $current_question_index + 1; ?>" aria-valuemin="0"
+            aria-valuemax="<?php echo $questionNum; ?>" style="border-radius: 0" ;>
         </div>
     </div>
 
@@ -75,7 +80,8 @@ $questions = $_SESSION['questions'];
     <main class="m-5">
 
         <div class="text-center">
-            <button class="btn btn-primary px-5 py-2 rounded-4 fw-bold" onclick="location.href='index.php';">Zurück zu allen
+            <button class="btn btn-primary px-5 py-2 rounded-4 fw-bold" onclick="location.href='index.php';">Zurück zu
+                allen
                 Quizzes</button>
         </div>
 
