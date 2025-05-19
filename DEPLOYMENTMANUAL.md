@@ -3,7 +3,7 @@
 
 
 ## Projektbeschreibung
-Bei GeoVista handelt es sich um eine interaktive Quiz-Website mit geografischen Thematiken. Hierbei können User Multiple-Choice Fragen beantworten können.
+Bei GeoVista handelt es sich um eine interaktive Quiz-Website mit geografischen Thematiken. Hierbei können User Multiple-Choice Fragen beantworten können. Es kann sowohl auf Smartphones als auch auf Laptops/PC gespielt werden, da responsives Design integriert worden ist.
 Die App besteht aus dem Frontend (HTML/JS) und dem Backend (PHP).
 
 ## Systemanforderungen

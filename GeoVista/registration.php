@@ -79,6 +79,7 @@ if (count($_POST) > 0 && count($errorMessages) === 0) {
         $_SESSION['userrole'] = getRole($db, $_SESSION['userid']);
     }
 
+    $_SESSION['successRegistration'] = "Erfolgreich registriert!";
     header("Location: ./index.php");
     exit();
 }
@@ -151,6 +152,10 @@ if (count($_POST) > 0 && count($errorMessages) === 0) {
                 </p>
 
                 <div class="text-center mt-5">
+                    <div class="text-muted" style="font-size: smaller; font-style: cursive;">Falls du bereits einen Account hast, kannst du dich hier <a href="login.php">einloggen</a>. </div> 
+                </div> 
+
+                <div class="text-center mt-5">
                     <button type="submit" class="btn btn-primary px-5 py-2 rounded-4 fw-bold">
                         Registrieren
                     </button>
@@ -169,8 +174,6 @@ if (count($_POST) > 0 && count($errorMessages) === 0) {
                 echo "<li>$msg</li>";
             }
             echo "</ul></div>";
-        } else if (count($_POST) > 0) {
-            echo "<p class='alert alert-success mt-4 text-center' role='alert'><strong>Erfolgreich registriert!</strong></p>";
         }
         ?>
 

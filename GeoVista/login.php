@@ -105,6 +105,10 @@ if (count($_POST) > 0 && count($errorMessages) === 0) {
                 </div>
 
                 <div class="text-center mt-5">
+                    <div class="text-muted" style="font-size: smaller; font-style: cursive;">Falls du noch keinen Account hast, kannst du dich hier <a href="registration.php">registrieren</a>. </div> 
+                </div> 
+                  
+                <div class="text-center mt-5">
                     <button type="submit" class="btn btn-primary px-5 py-2 rounded-4 fw-bold">
                         Login
                     </button>

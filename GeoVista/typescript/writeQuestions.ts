@@ -43,35 +43,40 @@ function createQuestion(questions: Question[]): void {
 
     //Card Image
     if (currentQuestion.image) {
+        const container = document.createElement('div');
+        container.className = 'mx-auto w-100 mb-4'; // centers and adds spacing
+        container.style.maxWidth = '400px'; // max size like the image
+        form.appendChild(container);
+
         if (quizID === '1' || quizID === '4') {
             const mapContainer = document.createElement('div');
             mapContainer.id = 'map';
-            form.appendChild(mapContainer);
+            mapContainer.className = 'w-100 rounded border'; // responsive width
+            mapContainer.style.height = '300px'; // fixed height to display map properly
+            container.appendChild(mapContainer);
 
             const script = document.createElement('script');
             script.type = 'module';
             script.innerHTML = `
-                import { getLeafletModule, loadCountryData } from './res/scripts/map_display.js';
+            import { getLeafletModule, loadCountryData } from './res/scripts/map_display.js';
 
-                // Initialize map
-                const mapContainer = document.getElementById('map');
-                const borderImageUrl = 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png';
+            const map = getLeafletModule(document.getElementById('map'), 
+                'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', 
+                ${quizID === '4' ? 'false' : 'true'});
 
-                const map = getLeafletModule(mapContainer, borderImageUrl, ${quizID === '4' ? 'false' : 'true'});
-
-                // Load country data for the map
-                loadCountryData(map, "${currentQuestion.image}");
-            `;
+            loadCountryData(map, "${currentQuestion.image}");
+        `;
             form.appendChild(script);
+
         } else {
             const imageElement = document.createElement('img');
-            imageElement.classList.add('card-img-top');
-            imageElement.style.width = '400px';
+            imageElement.className = 'img-fluid rounded border'; // Bootstrap responsive image
             imageElement.src = currentQuestion.image;
             imageElement.alt = `Bild zu Frage ${currentQuestion.id_question}`;
-            form.appendChild(imageElement);
+            container.appendChild(imageElement);
         }
     }
+
 
     //Card Body
     const cardBody = document.createElement('div');
@@ -99,6 +104,7 @@ function createQuestion(questions: Question[]): void {
         const label = document.createElement('label');
         label.setAttribute('for', answer.id_answer.toString());
         label.textContent = answer.a_desc;
+        label.classList.add('form-check-label', 'ms-2');
 
         answerSection.appendChild(radioInput);
         answerSection.appendChild(label);
@@ -168,9 +174,12 @@ function evaluateQuestion(checkQuestionButton: HTMLButtonElement, answerSection:
 function nextQuestion(questions: Question[]): void {
     const mainContent = document.getElementById('mainContent') as HTMLDivElement;
 
+    const buttonContainer = document.createElement("div") as HTMLDivElement;
+    buttonContainer.classList.add("text-center", "mt-4", "mb-3");
+
     const nextButton = document.createElement("button") as HTMLButtonElement;
     nextButton.type = "submit";
-    nextButton.className = "btn btn-primary";
+    nextButton.classList.add("btn", "btn-primary", "px-4");
     nextButton.name = "next";
     //nextButton.value = "1";
     nextButton.id = "nextButton";
@@ -180,7 +189,8 @@ function nextQuestion(questions: Question[]): void {
         handleQuiz(questions);
     });
 
-    mainContent.appendChild(nextButton);
+    buttonContainer.appendChild(nextButton);
+    mainContent.appendChild(buttonContainer);
 }
 
 function createQuizEvaluation(questions: Question[]): void {

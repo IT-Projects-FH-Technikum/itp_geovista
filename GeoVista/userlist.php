@@ -52,28 +52,31 @@ $users = getUsers($db);
     <main class="m-5">
         <p class="text-center text-muted mb-5">Zum Bearbeiten der Stammendaten eines Users, klicke auf den User</p>
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">E-Mail-Adresse</th>
-                    <th scope="col">Admin</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $user): ?>
-                    <tr class="clickable-row" data-href="profil.php?selected-user=<?php echo $user["id_user"]; ?>">
-                        <th scope="row" class="py-3"><?php echo $user["id_user"]; ?></th>
-                        <td class="py-3"><?php echo $user["username"]; ?></td>
-                        <td class="py-3"><?php echo $user["email"]; ?></td>
-                        <td class="py-3"><?php echo ($user["isAdmin"]) ? "Ja" : "Nein" ?></td>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">E-Mail-Adresse</th>
+                        <th scope="col">Admin</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
+                </thead>
+                <tbody>
+                    <?php foreach ($users as $user): ?>
+                        <tr class="clickable-row" data-href="profil.php?selected-user=<?php echo $user["id_user"]; ?>">
+                            <th scope="row" class="py-3"><?php echo $user["id_user"]; ?></th>
+                            <td class="py-3"><?php echo $user["username"]; ?></td>
+                            <td class="py-3"><?php echo $user["email"]; ?></td>
+                            <td class="py-3"><?php echo ($user["isAdmin"]) ? "Ja" : "Nein" ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </main>
+
+
     <!-- FOOTER -->
     <?php //include "./components/footer.php"; 
     ?>

@@ -77,7 +77,7 @@ if ($_SESSION["userid"]) {
         if ($_POST["oldPassword"] != '') { //is password changed?
             //Syntax: password_verify(password, hashed_password)
             if ((!password_verify($_POST["oldPassword"], $pwd)) && $_POST["oldPassword"] != $pwd) {  //2. condition only for admin (oldpassword already hashed)
-            //if ($_POST["oldPassword"] != $pwd) {
+                //if ($_POST["oldPassword"] != $pwd) {
                 $errorMessages[] = "Passwort ist falsch!";
                 $errorFields["pwd"] = true;
             } else if (isset($_POST["newPassword1"]) && $_POST["oldPassword"] == $_POST["newPassword1"]) { //check if new password is the same as the old one
@@ -101,6 +101,15 @@ if ($_SESSION["userid"]) {
         }
 
     }
+}
+
+//save and redirect if successful profil update
+if (count($_POST) > 0 && count($errorMessages) === 0) {
+    updateUserDetails($db, $userID, $mail, $username, $pwd, $isAdmin);
+
+    $_SESSION['successProfilupdate'] = "Profil erfolgreich aktualisiert!";
+    header("Location: ./index.php");
+    exit();
 }
 
 ?>
@@ -169,8 +178,8 @@ if ($_SESSION["userid"]) {
                     <label for="email" class="form-label fw-semibold">E-Mail-Adresse <span
                             class="text-primary">*</span></label>
                     <input type="email" class="form-control" <?php if ($errorFields['email'])
-                        echo 'is-invalid'; ?> id="email" name="email" value="<?php echo isset($_SESSION['userid']) ? htmlspecialchars($mail) : ''; ?>"
-                        required>
+                        echo 'is-invalid'; ?> id="email" name="email"
+                        value="<?php echo isset($_SESSION['userid']) ? htmlspecialchars($mail) : ''; ?>" required>
                 </div>
 
                 <!-- USERNAME -->
@@ -212,7 +221,7 @@ if ($_SESSION["userid"]) {
                     <button type="submit" class="btn btn-primary px-5 py-2 rounded-4 fw-bold">
                         Speichern
                     </button>
-                    <a href="./index.php" class="btn btn-outline-primary px-5 py-2 rounded-4 fw-bold ms-2">
+                    <a href="./index.php" class="btn btn-outline-primary px-5 py-2 rounded-4 fw-bold mt-4 mt-xl-0 ms-0 ms-xl-2">
                         Abbrechen
                     </a>
                 </div>
@@ -230,9 +239,6 @@ if ($_SESSION["userid"]) {
                 echo "<li>$msg</li>";
             }
             echo "</ul></div>";
-        } else if (count($_POST) > 0) {
-            updateUserDetails($db, $userID, $mail, $username, $pwd, $isAdmin);
-            echo "<p class='alert alert-success mt-4 text-center' role='alert'><strong>Profil erfolgreich aktualisiert!</strong></p>";
         }
         ?>
 

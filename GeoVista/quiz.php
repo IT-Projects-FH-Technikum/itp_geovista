@@ -60,10 +60,10 @@ $questions = $_SESSION['questions'];
     <?php include "./base/nav.php"; ?>
 
     <!-- PROGRESSBAR -->
-    <div class="progress position-sticky" style="top: 0; z-index: 1000;">
+    <div class="progress position-sticky" style="top: 0; z-index: 1000; border-radius: 0;">
         <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
             aria-valuenow="<?php echo $current_question_index + 1; ?>" aria-valuemin="0"
-            aria-valuemax="<?php echo $questionNum; ?>" style="border-radius: 0" ;>
+            aria-valuemax="<?php echo $questionNum; ?>" ;>
         </div>
     </div>
 
@@ -77,7 +77,7 @@ $questions = $_SESSION['questions'];
         <h1 class="text-center text-primary"><?php echo $quizName ?></h1>
     </header>
 
-    <main class="m-5">
+    <main class="m-2 mb-3 m-xl-5">
 
         <div class="text-center">
             <button class="btn btn-primary px-5 py-2 rounded-4 fw-bold" onclick="location.href='index.php';">Zurück zu

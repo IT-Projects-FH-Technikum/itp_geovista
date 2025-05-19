@@ -1,7 +1,7 @@
 # Benutzer Manual
 
 ## Projektbeschreibung
-Bei GeoVista handelt es sich um eine interaktive Quiz-Website mit geografischen Thematiken. Hierbei können User Multiple-Choice Fragen beantworten können.
+Bei GeoVista handelt es sich um eine interaktive Quiz-Website mit geografischen Thematiken. Hierbei können User Multiple-Choice Fragen beantworten können. Es kann sowohl auf Smartphones als auch auf Laptops/PC gespielt werden, da responsives Design integriert worden ist.
 
 ## Login
 Zu Beginn wird der User auf die Login Seite geleitet. Dort hat er die Möglichkeit sich mit seinem Usernamen und Passwort anzumelden.
