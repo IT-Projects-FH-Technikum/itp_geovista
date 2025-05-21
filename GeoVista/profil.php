@@ -141,7 +141,7 @@ if (count($_POST) > 0 && count($errorMessages) === 0) {
         <?php if (isset($_GET["selected-user"]) && $_SESSION['userrole'] === "Admin"): ?>
             <div class="text-center mb-5">
                 <button class="btn btn-primary px-5 py-2 rounded-4 fw-bold" onclick="location.href='userlist.php';">Zurück
-                    zur Usermanagement</button>
+                    zum Usermanagement</button>
             </div>
         <?php endif; ?>
 
