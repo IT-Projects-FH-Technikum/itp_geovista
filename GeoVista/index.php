@@ -120,7 +120,7 @@ if (isset($_SESSION['successProfilupdate'])) {
     <?php endif; ?>
 
     <!-- FOOTER -->
-    <?php //include "./components/footer.php"; ?>
+    <?php include "./base/footer.php"; ?>
 
 </body>
 

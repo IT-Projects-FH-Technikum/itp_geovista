@@ -25,6 +25,9 @@ Bei diesem Quiz werden Flaggen verschiedener Länder eingeblendet. Pro Flagge gi
 ### ⚜️ Länder (Umrisse) (Grenzen ohne Karte erraten)
 Dieses Quiz beinhaltet Fragen zu den Grenzen der jeweiligen Länder, welche auf einer dynamischen Karte gezeigt werden. Der User kann sich in der Karte frei bewegen und zoomen. Es gibt vier Antwortmöglichkeiten und wenn eine angeklickt wurde, wird unter `Prüfen` die eingegebene Antwort geprüft und direkt Feedback eingeblendet. Nach dem Prüfen wird mittels des `Weiter` Buttons die nächste Frage geladen werden. Am Quizende wird Feedback für das gesamte Quiz angezeigt. Es werden die Prozente und Anzahl der richtig bzw. falsch beantworteten Antworten eingeblendet. Mit dem `Zurück zu allen Quizzes` Button wird auf die Hauptseite zurück gewechselt.
 
+### 📄 Impressum 
+Wichtige und rechtliche Informationen stehen dem User jederzeit - erreichbar über den Websitefooter - im Impressum zum Nachlesen zur Verfügung.
+
 ## 🕴 Admin Special
 **Die folgenden Features sind ausschließlich für Administratoren verfügbar:**  
 Im `Usermanagement` Tab - erreichbar über die Navbar - sind alle User mit deren Account-Daten ersichtlich und veränderbar. Wenn man auf einen User klickt öffnet sich ein Fenster, indem verschiedene Daten geändert werden können. Der Administrator kann einen User auch Adminrechte vergeben oder Daten wie die E-Mail-Adresse, Username und das Passwort anpassen.
