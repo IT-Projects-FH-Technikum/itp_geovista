@@ -25,6 +25,9 @@ if (session_status() == PHP_SESSION_NONE)
                     <a class="nav-link" href="./index.php">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="./imprint.php">Impressum</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="./registration.php">Registrieren</a>
                 </li>
                 <?php if (isset($_SESSION['userrole']) && $_SESSION['userrole'] === "Admin"): ?>
