@@ -59,21 +59,6 @@ if (count($_POST) > 0 && $_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMessages[] = "Bitte markiere genau eine Antwortmöglichkeit als richtig!";
         $errorFields["isCorrect"] = true;
     }
-
-    /*if (isset($_POST['isCorrect'])) {
-        var_dump($_POST['isCorrect1']);
-        $checkedCnt = count($_POST['isCorrect']);
-
-        if ($checkedCnt != 1) {
-            $errorMessages[] = "Bitte markiere genau eine Antwortmöglichkeit als richtig!";
-            $errorFields["isCorrect"] = true;
-        }
-    }*/
-
-
-    //Image-upload
-
-
 }
 
 
@@ -105,7 +90,7 @@ if (count($_POST) > 0 && count($errorMessages) === 0) {
     } else if (isset($_POST["selection"]) && ($_POST["selection"] == "1" || $_POST["selection"] == "4")) {
         $filename = $_POST['countryCode'];
     }
-    
+
     saveQuestion($db, $_POST['question'], $answers, $_POST['selection'], $filename);
 
     $_SESSION['successQuestionupload'] = "Frage erfolgreich hochgeladen!";
@@ -265,7 +250,7 @@ if (count($_POST) > 0 && count($errorMessages) === 0) {
     </main>
 
     <!-- FOOTER -->
-    <?php //include "./components/footer.php"; ?>
+    <?php include "./base/footer.php"; ?>
 
     <!-- For bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
