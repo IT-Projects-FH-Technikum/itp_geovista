@@ -2,6 +2,12 @@
 if (session_status() == PHP_SESSION_NONE)
     session_start();
 
+/* if user isn't logged in -> redirect to login without showing this page */
+if (!isset($_SESSION["userid"])) {
+    header("Location: login.php");
+    exit();
+}
+
 require_once('config/dbaccess.php'); //to retrieve connection detail
 require_once('config/db_utils.php'); //functions for database access
 $db = new mysqli($host, $user, $password, $database);
@@ -16,6 +22,22 @@ $quizzes = getQuizzes($db);
 if (isset($_SESSION['questions']))
     unset($_SESSION['questions']);
 
+
+//Toast messages
+$successMessage = "";
+
+if (isset($_SESSION['successRegistration'])) {
+    $successMessage = $_SESSION['successRegistration'];
+    unset($_SESSION['successRegistration']); //Only show once
+}
+if (isset($_SESSION['successProfilupdate'])) {
+    $successMessage = $_SESSION['successProfilupdate'];
+    unset($_SESSION['successProfilupdate']);
+}
+if (isset($_SESSION['successQuestionupload'])) {
+    $successMessage = $_SESSION['successQuestionupload'];
+    unset($_SESSION['successQuestionupload']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +62,7 @@ if (isset($_SESSION['questions']))
 
     <!-- Welcome logged in user -->
     <?php
-    $user = getUserDetails($db, '2'); //$_SESSION["userid"]
+    $user = getUserDetails($db, $_SESSION['userid']);
     if ($user)
         echo "<p class='mt-3 text-center'>Hallo, <span class='fw-bold'>" . $user["username"] . "</span>!</p>";
     ?>
@@ -53,10 +75,10 @@ if (isset($_SESSION['questions']))
             <?php
             if ($quizzes) {
                 foreach ($quizzes as $quiz) {
-                    echo "<div class='card' style='width: 15rem;' onclick=\"location.href='level.php?quiz=" . $quiz["id_quiz"] . "';\">";
+                    echo "<div class='card' style='width: 15rem;' onclick=\"location.href='quiz.php?quiz=" . $quiz["id_quiz"] . "';\">";
                     echo "<img class='card-img-top p-5' src='" . $quiz["icon"] . "' alt='Quiz zu " . $quiz["name"] . "'>";
                     echo "<div class='card-body'>";
-                    echo "<h5 class='card-title'>" . $quiz["name"] . "</h5>";
+                    echo "<h5 class='card-title text-center'>" . $quiz["name"] . "</h5>";
                     echo "</div>";
                     echo "</div>";
                 }
@@ -69,15 +91,39 @@ if (isset($_SESSION['questions']))
 
     </main>
 
-    <!-- FOOTER -->
-    <?php //include "./components/footer.php"; ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
     <!-- For bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <!-- Bootstrap toast: success message for registration -->
+    <?php if (!empty($successMessage)): ?>
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+            <div id="successToast" class="toast align-items-center text-bg-success border-0 show" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <?= htmlspecialchars($successMessage) ?>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        <script>
+            const toastEl = document.getElementById('successToast');
+            const toast = new bootstrap.Toast(toastEl, {
+                delay: 4000,
+                autohide: true
+            });
+            toast.show();
+        </script>
+    <?php endif; ?>
+
+    <!-- FOOTER -->
+    <?php include "./base/footer.php"; ?>
+
 </body>
 
 </html>

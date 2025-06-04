@@ -2,6 +2,12 @@
 if (session_status() == PHP_SESSION_NONE)
     session_start();
 
+/* if user isn't logged in -> redirect to login without showing this page */
+if (!isset($_SESSION["userid"])) {
+    header("Location: login.php");
+    exit();
+}
+
 require_once('config/dbaccess.php'); //to retrieve connection detail
 require_once('config/db_utils.php'); //functions for database access
 $db = new mysqli($host, $user, $password, $database);
@@ -17,8 +23,8 @@ $errorFields["email"] = false;
 $errorFields["username"] = false;
 $errorFields["pwd"] = false;
 
-if (isset($user)) { //$_SESSION["user"]
-    $userID = isset($_GET["selected-user"]) ? $_GET["selected-user"] : '2'; //$_SESSION["userid"]
+if ($_SESSION["userid"]) {
+    $userID = isset($_GET["selected-user"]) ? $_GET["selected-user"] : $_SESSION["userid"];
 
     $userDetails = getUserDetails($db, $userID);
     $username = $userDetails["username"];
@@ -49,7 +55,7 @@ if (isset($user)) { //$_SESSION["user"]
         } else {
             $usernames = getUsernames($db);
 
-            if (in_array($username, $usernames) && $username != $_POST["username"]) {
+            if (in_array($_POST["username"], $usernames) && $username != $_POST["username"]) {
                 $errorMessages[] = "Der Username <i>" . $_POST["username"] . "</i> existiert bereits. Bitte wähle einen anderen!";
                 $errorFields["username"] = true;
             } else if (strlen($_POST["username"]) <= 3) {
@@ -64,10 +70,14 @@ if (isset($user)) { //$_SESSION["user"]
         }
 
         //Password
-        //check for old password
-/*         if ($_POST["oldPassword"] != '') { //is password changed?
+        if (isset($_GET["selected-user"]) && $_SESSION['userrole'] === "Admin") {
+            $_POST["oldPassword"] = $pwd;
+        }
+
+        if ($_POST["oldPassword"] != '') { //is password changed?
             //Syntax: password_verify(password, hashed_password)
-            if ((!password_verify($_POST["oldPassword"], $pwd)) && $_POST["oldPassword"] != $pwd) { //for admin users $_POST["oldPassword"] is already hashed -> need to compare directly ($_POST["oldPassword"] != $pwd)
+            if ((!password_verify($_POST["oldPassword"], $pwd)) && $_POST["oldPassword"] != $pwd) {  //2. condition only for admin (oldpassword already hashed)
+                //if ($_POST["oldPassword"] != $pwd) {
                 $errorMessages[] = "Passwort ist falsch!";
                 $errorFields["pwd"] = true;
             } else if (isset($_POST["newPassword1"]) && $_POST["oldPassword"] == $_POST["newPassword1"]) { //check if new password is the same as the old one
@@ -88,36 +98,18 @@ if (isset($user)) { //$_SESSION["user"]
         } else if ($_POST["newPassword1"] != '' || $_POST["newPassword2"] != '') {
             $errorMessages[] = "Die Eingabe des alten Passworts ist für die Änderung des Passworts erforderlich!";
             $errorFields["pwd"] = true;
-        } */
-        if (isset($_GET["selected-user"]) && getRole($db, '1') === "Admin") { //TODO: SESSION[user] bzw isAdmin SESSION
-            $_POST["oldPassword"] = $pwd;
-        }
-
-        if ($_POST["oldPassword"] != '') { //is password changed?
-            if ($_POST["oldPassword"] != $pwd) {
-                $errorMessages[] = "Passwort ist falsch!";
-                $errorFields["pwd"] = true;
-            } else if (isset($_POST["newPassword1"]) && $_POST["oldPassword"] == $_POST["newPassword1"]) { //check if new password is the same as the old one
-                $errorMessages[] = "Neues Passwort kann nicht das alte Passwort sein!";
-                $errorFields["pwd"] = true;
-            } else if (($_POST["oldPassword"] != '' && $_POST["newPassword1"] != '') && isset($_POST["newPassword2"])) {  //check if new password matches criteria and change when its right
-                if (!preg_match("#(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$#", $_POST["newPassword1"])) { //password criteria
-                    $errorMessages[] = "Passwort muss mindestens 8 Zeichen lang sein und eine Ziffer, Groß- und Kleinbuchstaben und ein Sonderzeichen beinhalten!";
-                    $errorFields["pwd"] = true;
-                }
-                if ($_POST["newPassword1"] != $_POST["newPassword2"]) {
-                    $errorMessages[] = "Die beiden neuen Passwörter stimmen nicht überein!";
-                    $errorFields["pwd"] = true;
-                } else {
-                    $pwd = ($_POST["newPassword1"]);
-                }
-            }
-        } else if ($_POST["newPassword1"] != '' || $_POST["newPassword2"] != '') {
-            $errorMessages[] = "Die Eingabe des alten Passworts ist für die Änderung des Passworts erforderlich!";
-            $errorFields["pwd"] = true;
         }
 
     }
+}
+
+//save and redirect if successful profil update
+if (count($_POST) > 0 && count($errorMessages) === 0) {
+    updateUserDetails($db, $userID, $mail, $username, $pwd, $isAdmin);
+
+    $_SESSION['successProfilupdate'] = "Profil erfolgreich aktualisiert!";
+    header("Location: ./index.php");
+    exit();
 }
 
 ?>
@@ -146,11 +138,10 @@ if (isset($user)) { //$_SESSION["user"]
     </header>
 
     <main class="container w-75 my-5">
-        <?php if (isset($_GET["selected-user"]) && getRole($db, '1') === "Admin"): ?>
-            <!-- TODO: SESSION[user] bzw isAdmin SESSION -->
+        <?php if (isset($_GET["selected-user"]) && $_SESSION['userrole'] === "Admin"): ?>
             <div class="text-center mb-5">
-                <button class="btn btn-primary px-5 py-2 rounded-4 fw-bold"
-                    onclick="location.href='userlist.php';">Zurück zur Usermanagement</button>
+                <button class="btn btn-primary px-5 py-2 rounded-4 fw-bold" onclick="location.href='userlist.php';">Zurück
+                    zum Usermanagement</button>
             </div>
         <?php endif; ?>
 
@@ -163,8 +154,7 @@ if (isset($user)) { //$_SESSION["user"]
             <div class="p-5 border rounded-4 shadow-sm bg-white">
 
                 <!-- Admin: edit selected user from usermanagement.php-> only visible for admin, for changing the activity status of the user-->
-                <?php if (isset($_GET["selected-user"]) && getRole($db, '1') === "Admin"): ?>
-                    <!-- TODO: SESSION[user] bzw isAdmin SESSION -->
+                <?php if (isset($_GET["selected-user"]) && $_SESSION['userrole'] === "Admin"): ?>
                     <div class="mb-4">
                         <label class="form-label fw-semibold d-block mb-2">Rolle auswählen <span
                                 class="text-primary">*</span></label>
@@ -188,9 +178,8 @@ if (isset($user)) { //$_SESSION["user"]
                     <label for="email" class="form-label fw-semibold">E-Mail-Adresse <span
                             class="text-primary">*</span></label>
                     <input type="email" class="form-control" <?php if ($errorFields['email'])
-                        echo 'is-invalid'; ?> id="email" name="email" value="<?php echo isset($user) ? htmlspecialchars($mail) : ''; ?>"
-                        required>
-                    <!-- $_SESSION['user'] -->
+                        echo 'is-invalid'; ?> id="email" name="email"
+                        value="<?php echo isset($_SESSION['userid']) ? htmlspecialchars($mail) : ''; ?>" required>
                 </div>
 
                 <!-- USERNAME -->
@@ -199,9 +188,8 @@ if (isset($user)) { //$_SESSION["user"]
                             class="text-primary">*</span></label>
                     <input type="text" class="form-control <?php if ($errorFields['username'])
                         echo 'is-invalid'; ?>" id="user" name="username"
-                        value="<?php echo isset($user) ? htmlspecialchars($username) : ''; ?>" required
+                        value="<?php echo isset($_SESSION['userid']) ? htmlspecialchars($username) : ''; ?>" required
                         autocomplete="username">
-                    <!-- $_SESSION['user'] -->
                 </div>
 
                 <!-- PASSWORD -->
@@ -233,7 +221,7 @@ if (isset($user)) { //$_SESSION["user"]
                     <button type="submit" class="btn btn-primary px-5 py-2 rounded-4 fw-bold">
                         Speichern
                     </button>
-                    <a href="./index.php" class="btn btn-outline-primary px-5 py-2 rounded-4 fw-bold ms-2">
+                    <a href="./index.php" class="btn btn-outline-primary px-5 py-2 rounded-4 fw-bold mt-4 mt-xl-0 ms-0 ms-xl-2">
                         Abbrechen
                     </a>
                 </div>
@@ -251,9 +239,6 @@ if (isset($user)) { //$_SESSION["user"]
                 echo "<li>$msg</li>";
             }
             echo "</ul></div>";
-        } else if (count($_POST) > 0) {
-            updateUserDetails($db, $userID, $mail, $username, $pwd, $isAdmin);
-            echo "<p class='alert alert-success mt-4 text-center' role='alert'><strong>Profil erfolgreich aktualisiert!</strong></p>";
         }
         ?>
 
@@ -261,7 +246,7 @@ if (isset($user)) { //$_SESSION["user"]
 
 
     <!-- FOOTER -->
-    <?php //include "./components/footer.php"; ?>
+    <?php include "./base/footer.php"; ?>
 
     <!-- For bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 09. Apr 2025 um 12:24
+-- Erstellungszeit: 04. Jun 2025 um 14:55
 -- Server-Version: 10.4.22-MariaDB
 -- PHP-Version: 8.1.2
 
@@ -386,7 +386,7 @@ INSERT INTO `geovista` (`pk_geovista`) VALUES
 CREATE TABLE `question` (
   `id_question` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `fk_quiz` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -519,8 +519,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `isAdmin`, `fk_geovista`) VALUES
-(1, 'admin', 'admin.admin@admin.com', 'AdminAdmin', 1, 1),
-(2, 'maxmustermann', 'max.mustermann@gmx.com', 'Passwort123', 0, 1);
+(1, 'admin', 'admin.admin@admin.com', '$2y$10$ApIN.rhJ5I4OPeif88gRQeSueGDhBA52Ehe4j5IjuR.K3YOXxOpP.', 1, 1),
+(2, 'maxmustermann', 'max.mustermann@gmx.com', '$2y$10$n23aeO0GqUIwb1CZAokgGeZ1.ytROvlB.FOc6B1S5CpHEwVuMSeaW', 0, 1),
+(3, 'annademo', 'anna.demo@gmx.com', '$2y$10$Z8luiGFj51ajWD887rslxOC4YQJ290NeZAuaD9wArkOuUuLY/XUta', 0, 1);
 
 --
 -- Indizes der exportierten Tabellen
@@ -569,13 +570,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT für Tabelle `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id_answer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=406;
+  MODIFY `id_answer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=442;
 
 --
 -- AUTO_INCREMENT für Tabelle `question`
 --
 ALTER TABLE `question`
-  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT für Tabelle `quiz`
@@ -587,7 +588,7 @@ ALTER TABLE `quiz`
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints der exportierten Tabellen
