@@ -34,6 +34,9 @@ if (session_status() == PHP_SESSION_NONE)
                     <li class="nav-item">
                         <a class="nav-link" href="./userlist.php">Usermanagement</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./question_upload.php">Fragenerstellung</a>
+                    </li>
                 <?php endif; ?>
             </ul>
 

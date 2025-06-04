@@ -201,4 +201,28 @@ function saveRegistration($db, $username, $email, $password) {
     }
 }
 
+function saveQuestion($db, $description, $answers, $quiz_id, $image = null) {
+    try {
+        //Insert question
+        $sql = "INSERT INTO question (description, image, fk_quiz) VALUES (?, ?, ?)";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("ssi", $description, $image, $quiz_id);
+        $stmt->execute();
+        $question_id = $db->insert_id; //get id of last inserted question
+        $stmt->close();
+
+        //Insert answers
+        foreach ($answers as $answer) {
+            $sql = "INSERT INTO answer (description, isCorrectAnswer, fk_question) VALUES (?, ?, ?)";
+            $stmt = $db->prepare($sql);
+            $stmt->bind_param("ssi", $answer['description'], $answer['isCorrect'], $question_id);
+            $stmt->execute();
+            $stmt->close();
+        }
+    } catch (Exception $e) {
+        echo '<div class="alert alert-danger" role="alert">Error: ' . $e->getMessage() . "</div>\n";
+    }
+}
+
+
 ?>

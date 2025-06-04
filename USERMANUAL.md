@@ -31,3 +31,5 @@ Wichtige und rechtliche Informationen stehen dem User jederzeit - erreichbar üb
 ## 🕴 Admin Special
 **Die folgenden Features sind ausschließlich für Administratoren verfügbar:**  
 Im `Usermanagement` Tab - erreichbar über die Navbar - sind alle User mit deren Account-Daten ersichtlich und veränderbar. Wenn man auf einen User klickt öffnet sich ein Fenster, indem verschiedene Daten geändert werden können. Der Administrator kann einen User auch Adminrechte vergeben oder Daten wie die E-Mail-Adresse, Username und das Passwort anpassen.
+
+Unter `Fragenerstellung` - erreichbar über die Navbar - ist es einem Admin möglich neue Fragen zu erstellen. Dafür muss zuerst das gewünschte Quiz ausgewählt werden zu dem eine Frage hinzugefügt werden soll. Daraufhin kann ein Fragetext sowie vier Antwortmöglichkeiten hinzugefügt werden, wobei genau eine Antwort als richtig markiert werden muss. Zusätzlich gibt es, je nach gewähltem Quiz, die Möglichkeit entweder ein zugehöriges Bild (aktzeptiert werden .jpg .jpeg .png .svg) oder den entsprechenden Ländercode hochzuladen.

@@ -23,7 +23,6 @@ if (isset($_SESSION['questions']))
     unset($_SESSION['questions']);
 
 
-
 //Toast messages
 $successMessage = "";
 
@@ -35,7 +34,10 @@ if (isset($_SESSION['successProfilupdate'])) {
     $successMessage = $_SESSION['successProfilupdate'];
     unset($_SESSION['successProfilupdate']);
 }
-
+if (isset($_SESSION['successQuestionupload'])) {
+    $successMessage = $_SESSION['successQuestionupload'];
+    unset($_SESSION['successQuestionupload']);
+}
 ?>
 
 <!DOCTYPE html>
