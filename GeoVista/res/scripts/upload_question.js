@@ -25,7 +25,7 @@ function handleQuizSelectionChange(dropdown, selectedQuiz) {
     dropdown.addEventListener("change", () => {
         const selectedText = dropdown.options[dropdown.selectedIndex].text;
         const selectedValue = dropdown.options[dropdown.selectedIndex].value;
-        selectedQuiz.textContent = `Du erstellst eine Frage zu Quiz \"${selectedText}\"`;
+        selectedQuiz.textContent = `Du erstellst eine Frage zu Quiz "${selectedText}"`;
         let dataUploadDiv = document.getElementById("dependentData");
         if (Number(selectedValue) === 1 || Number(selectedValue) === 4) {
             dataUploadDiv.innerHTML = '<label for="countryCode" class="form-label fw-semibold">Ländercode ISO_A3<span class="text-primary">*</span></label> <input type="text" class="form-control" id="countryCode" name="countryCode">';
@@ -45,14 +45,13 @@ function handleQuizSelectionChange(dropdown, selectedQuiz) {
             }
         });
     });
-    //File upload
 }
 document.addEventListener("DOMContentLoaded", () => {
     //Dropdown for Quiz-Selection
     const dropdown = document.getElementById("selection");
     const selectedQuiz = document.getElementById("displayQuiz");
     handleQuizSelectionChange(dropdown, selectedQuiz);
-    // AB DAAAAAAAAAAAAAAAAAAAAA
+    //File Upload
     const uploadBtn = document.getElementById('uploadBtn');
     if (uploadBtn) {
         uploadBtn.addEventListener('click', () => {

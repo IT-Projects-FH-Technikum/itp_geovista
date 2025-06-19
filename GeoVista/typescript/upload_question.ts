@@ -27,7 +27,7 @@ function handleQuizSelectionChange(dropdown: HTMLSelectElement, selectedQuiz: HT
     dropdown.addEventListener("change", () => {
         const selectedText = dropdown.options[dropdown.selectedIndex].text;
         const selectedValue: string = dropdown.options[dropdown.selectedIndex].value;
-        selectedQuiz.textContent = `Du erstellst eine Frage zu Quiz \"${selectedText}\"`;
+        selectedQuiz.textContent = `Du erstellst eine Frage zu Quiz "${selectedText}"`;
 
         let dataUploadDiv = document.getElementById("dependentData") as HTMLDivElement;
 
@@ -51,8 +51,6 @@ function handleQuizSelectionChange(dropdown: HTMLSelectElement, selectedQuiz: HT
             }
         });
     });
-
-    //File upload
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -63,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     handleQuizSelectionChange(dropdown, selectedQuiz);
 
-    // AB DAAAAAAAAAAAAAAAAAAAAA
+    //File Upload
     const uploadBtn = document.getElementById('uploadBtn') as HTMLButtonElement;
     if (uploadBtn) {
         uploadBtn.addEventListener('click', () => {
