@@ -2,22 +2,66 @@ https://tree.nathanfriend.com/?s=(%27options!(%27fancy3~fullPath!false~trailingS
 
 
 ---------------------------------------------------------------------------
-
 .
 └── GeoVista/
     ├── base/
+    │   ├── footer.php
+    │   ├── imageUpload.php
     │   ├── nav.php
+    │   ├── plugins.php
     │   └── username.php
     ├── config/
     │   ├── db_utils.php
     │   ├── dbaccess.php
     │   ├── ERM-GeoVista.jpg
-    │   ├── folderStructure.docx / folderStructure.txt
-    │   └── geovista.sql
+    │   ├── folderStructure.txt
+    │   ├── geovista.sql
+    │   └── userLogin.txt
     ├── res/
-    │   └── img/
-    │       ├── icons
-    │       └── question_img/
-    │           └── oesterreich-in-europa.png
+    │   ├── country_data/
+    │   │   └── countries.geo.js
+    │   ├── img/
+    │   │   ├── icons/
+    │   │   │   └── profil.png
+    │   │   ├── question_img/
+    │   │   │   ├── capitals/
+    │   │   │   │   ├── amsterdam.jpg
+    │   │   │   │   └── ...
+    │   │   │   ├── flags/
+    │   │   │   │   ├── andorra.svg
+    │   │   │   │   └── ...
+    │   │   │   ├── albanien.png
+    │   │   │   └── ...
+    │   │   └── quiz_icons/
+    │   │       ├── icon-flaggen.svg
+    │   │       ├── icon-hauptstaedte.svg
+    │   │       ├── icon-laender.svg
+    │   │       └── icon-laenderUmrisse.svg
+    │   ├── scripts/
+    │   │   ├── map_display.js
+    │   │   ├── map.js
+    │   │   ├── question_type.js
+    │   │   ├── question_upload.js
+    │   │   ├── upload_question.js
+    │   │   ├── userlistClick.js
+    │   │   ├── userlistScript.js
+    │   │   └── writeQuestions.js
+    │   └── uploads
+    ├── typescript/
+    │   ├── map.ts
+    │   ├── package-lock.json
+    │   ├── package.json
+    │   ├── tsconfig.json
+    │   ├── upload_question.ts
+    │   ├── userlistClick.ts
+    │   └── writeQuestions.ts
+    ├── imprint.php
     ├── index.php
-    └── level1.php
+    ├── leaflet_image.html
+    ├── login.php
+    ├── logout.php
+    ├── profil.php
+    ├── question_upload.php
+    ├── quiz.php
+    ├── registration.php
+    └── userlist.php
