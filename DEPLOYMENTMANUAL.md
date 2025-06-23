@@ -30,14 +30,14 @@ cd itp_geovista
 
 ### 📐 2. Datenbank einrichten
 - XAMPP für die Module `Apache` und `MySQL` starten
-- Im Browser [localhost/phpmyadmin](localhost/phpmyadmin) aufrufen 
+- Im Browser [localhost/phpmyadmin](http://localhost/phpmyadmin) aufrufen 
 - Eine neue Datenbank namens `geovista` erstellen
 - Den SQL-Dump (Export) aus [GitHub](https://github.com/IT-Projects-FH-Technikum/itp_geovista.git) mittels `Import` einfügen
 
 
 ### 🏁 3. Server starten
 - XAMPP für die Module `Apache` und `MySQL` starten
-- [localhost](localhost) aufrufen und zu dem Projekt-Ordner navigieren
+- [localhost](http://localhost/) aufrufen und zu dem Projekt-Ordner navigieren
 
 
 ## 📨 4. Kontakt
